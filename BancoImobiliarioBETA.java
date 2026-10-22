@@ -18,39 +18,51 @@ public class BancoImobiliarioBETA {
         return dice.nextInt(6) + 1;
     } // gira um dado de [1, 6]
 
-    public static String formatarCasa(int numeroCasa, int[] posicaoJogador) {
+    // cor de cada jogador no terminal: vermelho, azul, verde e amarelo
+    static final String[] CORES_JOGADORES = { "\u001B[31m", "\u001B[34m", "\u001B[32m", "\u001B[33m" };
+    static final String SEM_COR = "\u001B[0m";
 
-        final String[] CORES = { "\u001B[31m", "\u001B[34m", "\u001B[32m", "\u001B[33m" };
-        final String RESET = "\u001B[0m";
+    
+    public static String alinharTabuleiro(int numeroCasa, int[] posicaoJogador) {
+        String casa = "[ ";
+        int jogadoresNaCasa = 0;
 
-        StringBuilder blocos = new StringBuilder();
-        int ocupados = 0;
-
-        for (int p = 0; p < JOGADORES; p++) {
-
-            if (posicaoJogador[p] == numeroCasa) {
-
-                blocos.append(CORES[p]).append("█").append(RESET);
-                ocupados++;
-
+        
+        for (int i = 0; i < JOGADORES; i++) {
+            if (posicaoJogador[i] == numeroCasa) {
+                casa += CORES_JOGADORES[i] + "█" + SEM_COR;
+                jogadoresNaCasa++;
             }
-
         }
 
-        String conteudo;
-
-        if (ocupados > 0) {
-
-            conteudo = " " + blocos + " ".repeat(3 - ocupados);
-             // sempre 4 caracteres visíveis
+        if (jogadoresNaCasa == 0) {
+            // casa vazia mostra o número dela
+            casa += String.format("%-3d", numeroCasa);
         } 
         else {
-
-            conteudo = String.format(" %-3d", numeroCasa);
-             // sempre 4 caracteres visíveis
+            
+            for (int i = jogadoresNaCasa; i < 3; i++) {
+                casa += " ";
+            }
         }
 
-        return "[" + conteudo + "] "; // 7 caracteres visíveis no total
+        return casa + "] ";
+    }
+
+    // imprime o tabuleiro inteiro, as posições -1 são o miolo vazio
+    public static void imprimirTabuleiro(int[][] tabuleiro, int[] posicaoJogador) {
+        for (int i = 0; i < tabuleiro.length; i++) {
+            for (int j = 0; j < tabuleiro[i].length; j++) {
+                if (tabuleiro[i][j] >= 0) {
+                    System.out.print(alinharTabuleiro(tabuleiro[i][j], posicaoJogador));
+                } 
+                else {
+                    System.out.print("       "); // mesmo tamanho de uma casa
+                }
+            }
+
+            System.out.println("\n");
+        }
     }
 
     public static int colocarNoDesempate(int maiorResultadoDado, int[] somaDadoJogadores,
@@ -186,23 +198,7 @@ public class BancoImobiliarioBETA {
                 posicaoJogador[jogadorDaVez] += somaDadosJogador[jogadorDaVez];
                 posicaoJogador[jogadorDaVez] %= CASAS_TABULEIRO;
 
-                // imprime tabuleiro
-                for (int i = 0; i < tabuleiro.length; i++) {
-
-                    for (int j = 0; j < tabuleiro[0].length; j++) {
-
-                        if (tabuleiro[i][j] >= 0) {
-
-                            System.out.print(formatarCasa(tabuleiro[i][j], posicaoJogador));
-                        } 
-                        else {
-
-                            System.out.print("       ");
-                        }
-                    }
-
-                    System.out.println("\n");
-                }
+                imprimirTabuleiro(tabuleiro, posicaoJogador);
             }
 
             jogadorDaVez = (jogadorDaVez + 1) % JOGADORES; // passa a vez
