@@ -165,8 +165,8 @@ public class BancoImobiliarioBETA {
             System.out.printf("Jogador %d:\n", jogadorDaVez + 1);
             dado1 = girarDado();
             dado2 = girarDado();
+            DadoAnimado.animarDados(dado1, dado2);
             somaDadosJogador[i] = dado1 + dado2;
-            System.out.println(dado1 + "\n" + dado2);
 
             if (somaDadosJogador[i] > maiorResultadoDado) {
                 maiorResultadoDado = somaDadosJogador[i];
@@ -192,9 +192,9 @@ public class BancoImobiliarioBETA {
                 System.out.printf("Jogador %d:\n", jogadorDaVez + 1);
                 dado1 = girarDado();
                 dado2 = girarDado();
+                DadoAnimado.animarDados(dado1, dado2);
                 somaDadosJogador[jogadorDaVez] = dado1 + dado2;
-                System.out.println(dado1 + "\n" + dado2);
-
+                
                 posicaoJogador[jogadorDaVez] += somaDadosJogador[jogadorDaVez];
                 posicaoJogador[jogadorDaVez] %= CASAS_TABULEIRO;
 
