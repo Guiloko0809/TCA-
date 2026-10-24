@@ -27,7 +27,7 @@ public class DadoAnimado{
            System.out.flush();
 
             try{
-                Thread.sleep(60 * i);
+                Thread.sleep(60 * ((i / 2) + 1) );
             }
             catch(InterruptedException e){
 
@@ -39,7 +39,7 @@ public class DadoAnimado{
     }    
 
 
-     public static final String[][] FACES = {
+     public static final String[][] FACES = {   //digite (chcp 65001) no terminal pra liberar os caracteres
         {
             " ----- ",
             "|     |",
@@ -85,7 +85,7 @@ public class DadoAnimado{
     };
 
    public static void main(String [] args) {
-
+    //testes
     animarDados(1, 2);
 
    }
