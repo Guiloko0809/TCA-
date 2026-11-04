@@ -63,7 +63,6 @@ public class BancoImobiliarioBETA { //digite (chcp 65001) no terminal pra libera
                 considerarDesempate[i] = true;
             }
 
-            System.out.println(considerarDesempate[i]); 
         }
 
         return jogadoresDesempate;
@@ -119,7 +118,7 @@ public class BancoImobiliarioBETA { //digite (chcp 65001) no terminal pra libera
         int jogadorDaVez = 0;
         int[] somaDadosJogador = new int[JOGADORES];
         int[] posicaoJogador = new int[JOGADORES];
-
+        int[] dinheiroJogador = {2558000, 2558000, 2558000, 2558000};
         // cadeia
         int[] turnosCadeia = new int[JOGADORES];
         boolean jogarNovamente = false;
@@ -130,11 +129,6 @@ public class BancoImobiliarioBETA { //digite (chcp 65001) no terminal pra libera
         boolean[] estaNoDesempate = new boolean[JOGADORES];
         int jogadoresDesempate = 0;
 
-        // propriedades
-        boolean[] ePropriedade = { false, true, true, false, true, true, false, true, false, true, false, false, true,
-                true, false, true, false, true, true, true, false, true, false, false, false, true, true, false, true,
-                false, false, true, false, true, true, true, false, true, false, true };
-        int[] proprietarios = new int[CASAS_TABULEIRO];
 
         // variaveis representativas
         int[][] tabuleiro = {
@@ -175,7 +169,7 @@ public class BancoImobiliarioBETA { //digite (chcp 65001) no terminal pra libera
 
         while (true) {
 
-            System.out.printf("Jogador %d:\n", jogadorDaVez + 1);
+            System.out.printf("Jogador %d: R$%d\n", jogadorDaVez + 1, dinheiroJogador[jogadorDaVez]);
 
             if (turnosCadeia[jogadorDaVez] > 0) {
                 System.out.printf("Você está na cadeia, espere mais %d turnos e seja livre !!!\n", turnosCadeia[jogadorDaVez]);
@@ -189,7 +183,12 @@ public class BancoImobiliarioBETA { //digite (chcp 65001) no terminal pra libera
                 System.out.printf("\n---------- RESULTADO FINAL: %d ---------\n", somaDadosJogador[jogadorDaVez]);
 
                 posicaoJogador[jogadorDaVez] += somaDadosJogador[jogadorDaVez];
-                posicaoJogador[jogadorDaVez] %= CASAS_TABULEIRO;
+                
+                if(posicaoJogador[jogadorDaVez] >= CASAS_TABULEIRO){
+                    System.out.println("Você deu uma volta no tabuleiro1, ganhando assim mais R$ 200.000");
+                    posicaoJogador[jogadorDaVez] %= CASAS_TABULEIRO;
+                    dinheiroJogador[jogadorDaVez] += 200000;
+                }
 
                 if(dado1 == dado2){
                     dadosIguais++;
