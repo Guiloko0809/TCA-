@@ -215,6 +215,7 @@ public class BancoImobiliarioBETA { //digite (chcp 65001) no terminal pra libera
                         if (tabuleiro[i][j] >= 0) {
 
                             System.out.print(formatarCasa(tabuleiro[i][j], posicaoJogador));
+                            
                         } 
                         else {
 

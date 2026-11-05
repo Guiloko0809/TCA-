@@ -1,0 +1,13 @@
+existem três tipos de casa (fora a dos cantos)
+primeiro tipo: Propriedade
+variaveis da propriedade
+String nome 
+int proprietario
+int preco  
+int grupo
+int alugel
+int precoCasa
+int precoHotel
+
+segundo tipo: companhias
+
