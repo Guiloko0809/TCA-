@@ -9,5 +9,11 @@ int alugel
 int precoCasa
 int precoHotel
 
-segundo tipo: companhias
+você só pode comprar uma casa pra propriedade depois que você já tiver todas as propriedades daquele grupo
 
+segundo tipo: companhias
+variáveis da companhia
+String nome
+int preco
+int proprietario
+int valorConta
