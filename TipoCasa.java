@@ -2,7 +2,8 @@ public class TipoCasa {
     private int tipoDaCasa; // 1 = propriedade 2 = companhia 3 = sorteReves 4 = caso a parte
     private int posicaoCartaCasa;
 
-    public static TipoCasa[] criarTabuleiro(){ //cria todas as casas do tabuleiro
+    //métodos
+    public static TipoCasa[] criarTabuleiro(){ //método para criar todas as casas do tabuleiro
         TipoCasa[] tipoCasasTabuleiro = new TipoCasa[40];
         tipoCasasTabuleiro[0] = new TipoCasa(0, 0); //0 0 porque mão importa
         tipoCasasTabuleiro[1] = new TipoCasa(1, 0);
