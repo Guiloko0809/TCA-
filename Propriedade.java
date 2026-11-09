@@ -3,20 +3,25 @@ public class Propriedade {
     private int proprietario;
     private int preco;  
     private int grupo;
-    private int alugel;
-    private int precoCasa;
-    private int precoHotel;
+    private int aluguel;
+    private int precoCasaHotel;
+    private int numeroCasas;
+    private int valorHipoteca;
 
     //construtores
-    public Propriedade(String nome, int proprietario, int preco, int grupo, int alugel, int precoCasa, int precoHotel){
+    public Propriedade(String nome, int preco, int grupo, int aluguel, int precoCasaHotel, int valorHipoteca){
         this.nome = nome;
-        this.proprietario = proprietario;
+        this.proprietario = 0; //cria a propriedade sem proprietario
         this.preco = preco;
-        this.grupo = grupo;
-        this.alugel = alugel;
-        this.precoCasa = precoCasa;
-        this.precoHotel = precoHotel; 
+        this.grupo = grupo; 
+        this.aluguel = aluguel;
+        this.precoCasaHotel = precoCasaHotel;
+        this.numeroCasas = 0; //começa sem nenhuma casa (5 casas = hotel)
+        this.valorHipoteca = valorHipoteca;
     }
+
+    //grupo pode ser 1, 2, 3, 4, 5 ou 6 (conjunto de propriedades separados por cor)
+    //1 -> verde 2 -> laranja 3 -> azul claro 4 -> rosa 5 -> roxo 6 -> azul escuro 7 -> amarelo
 
     public Propriedade(){
         
@@ -39,16 +44,20 @@ public class Propriedade {
         return grupo;
     }
 
-    public int getAlugel(){
-        return alugel;
+    public int getAluguel(){
+        return aluguel;
     }
 
-    public int getPrecoCasa(){
-        return precoCasa;
+    public int getPrecoCasaHotel(){
+        return precoCasaHotel;
     }
 
-    public int getPrecoHotel(){
-        return precoHotel;
+    public int getNumeroCasas(){
+        return numeroCasas;
+    }
+
+    public int getValorHipoteca(){
+        return valorHipoteca;
     }
 
     //setters
@@ -68,16 +77,20 @@ public class Propriedade {
         this.grupo = grupo;
     }
 
-    public void setAlugel(int alugel) {
-        this.alugel = alugel;
+    public void setAluguel(int aluguel) {
+        this.aluguel = aluguel;
     }
 
-    public void setPrecoCasa(int precoCasa) {
-        this.precoCasa = precoCasa;
+    public void setPrecoCasaHotel(int precoCasaHotel) {
+        this.precoCasaHotel = precoCasaHotel;
     }
 
-    public void setPrecoHotel(int precoHotel) {
-        this.precoHotel = precoHotel;
+    public void setNumeroCasas(int numeroCasas){
+        this.numeroCasas = numeroCasas;
+    }
+
+    public void setValorHipoteca(int valorHipoteca){
+        this.valorHipoteca = valorHipoteca;
     }
 
 }
