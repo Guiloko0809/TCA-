@@ -47,6 +47,10 @@ public class Companhia {
         return valorConta;
     }
 
+    public int getValorHipoteca(){
+        return valorHipoteca;
+    }
+
     //setters
     public void setNome(String nome){
         this.nome = nome;
@@ -62,6 +66,10 @@ public class Companhia {
 
     public void setValorConta(int valorConta){
         this.valorConta = valorConta;
+    }
+
+    public void setValorHipoteca(int valorHipoteca){
+        this.valorHipoteca = valorHipoteca;
     }
 
 }
