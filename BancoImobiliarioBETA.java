@@ -18,10 +18,64 @@ public class BancoImobiliarioBETA { //digite (chcp 65001) no terminal pra libera
         return dice.nextInt(6) + 1;
     } // gira um dado de [1, 6]
 
-    public static String formatarCasa(int numeroCasa, int[] posicaoJogador) {
+    public static String formatarCasa(int numeroCasa, int[] posicaoJogador, TipoCasa[] tipoCasasTabuleiro,
+            Propriedade[] propriedades) {
 
         final String[] CORES = { "\u001B[31m", "\u001B[34m", "\u001B[32m", "\u001B[33m" };
         final String RESET = "\u001B[0m";
+
+        // fundo de cada grupo, o 0 não é usado (verde, laranja, azul claro, rosa, roxo, azul escuro, amarelo)
+        final String[] FUNDOS = { "", "\u001B[30;48;5;40m", "\u001B[30;48;5;208m", "\u001B[30;48;5;117m",
+                "\u001B[30;48;5;205m", "\u001B[30;48;5;141m", "\u001B[30;48;5;33m", "\u001B[30;48;5;226m" };
+
+        // mesmos grupos, só que mais escuros
+        final String[] FUNDOS_ESCUROS = { "", "\u001B[97;48;5;22m", "\u001B[97;48;5;94m", "\u001B[97;48;5;17m",
+                "\u001B[97;48;5;125m", "\u001B[97;48;5;54m", "\u001B[97;48;5;17m", "\u001B[97;48;5;94m" };
+
+        // jogador que tem a cor parecida com a do grupo (-1 = nenhum)
+        final int[] JOGADOR_MESMA_COR = { -1, 2, 3, 1, -1, -1, 1, 3 };
+
+        // letra das casas especiais (tipo 4), o 0 não é usado
+        // 1 cadeia, 2 imposto de renda, 3 férias, 4 lucros e dividendos, 5 vá pra cadeia
+        final String[] CASOS_A_PARTE = { "", "C", "IR", "F", "LD", "VC" };
+
+        TipoCasa casa = tipoCasasTabuleiro[numeroCasa];
+        String fundo = RESET; // casa sem cor fica igual
+        String letra = "I"; // a casa 0 é o início
+        int grupo = 0;
+
+        if (casa.getTipoDaCasa() == 1) {
+
+            letra = "P";
+            grupo = propriedades[casa.getPosicaoCartaCasa()].getGrupo();
+            fundo = FUNDOS[grupo];
+
+            // se tem jogador da mesma cor do grupo na casa, escurece a casa
+            for (int p = 0; p < JOGADORES; p++) {
+
+                if (posicaoJogador[p] == numeroCasa && JOGADOR_MESMA_COR[grupo] == p) {
+                    fundo = FUNDOS_ESCUROS[grupo];
+                }
+
+            }
+
+        }
+        else if (casa.getTipoDaCasa() == 2) {
+
+            letra = "CO";
+            fundo = "\u001B[30;48;5;245m"; // companhia fica cinza
+
+        }
+        else if (casa.getTipoDaCasa() == 3) {
+
+            letra = "SR";
+
+        }
+        else if (casa.getTipoDaCasa() == 4) {
+
+            letra = CASOS_A_PARTE[casa.getPosicaoCartaCasa()];
+
+        }
 
         StringBuilder blocos = new StringBuilder();
         int ocupados = 0;
@@ -30,7 +84,7 @@ public class BancoImobiliarioBETA { //digite (chcp 65001) no terminal pra libera
 
             if (posicaoJogador[p] == numeroCasa) {
 
-                blocos.append(CORES[p]).append("█").append(RESET);
+                blocos.append(CORES[p]).append("█").append(fundo); // volta pro fundo da casa
                 ocupados++;
 
             }
@@ -46,11 +100,11 @@ public class BancoImobiliarioBETA { //digite (chcp 65001) no terminal pra libera
         } 
         else {
 
-            conteudo = String.format(" %-3d", numeroCasa);
+            conteudo = String.format(" %-3s", letra);
              // sempre 4 caracteres visíveis
         }
 
-        return "[" + conteudo + "] "; // 7 caracteres visíveis no total
+        return fundo + "[" + conteudo + "]" + RESET + " "; // 7 caracteres visíveis no total
     }
 
     public static int colocarNoDesempate(int maiorResultadoDado, int[] somaDadosJogador,
@@ -218,7 +272,7 @@ public class BancoImobiliarioBETA { //digite (chcp 65001) no terminal pra libera
 
                         if (tabuleiro[i][j] >= 0) {
 
-                            System.out.print(formatarCasa(tabuleiro[i][j], posicaoJogador));
+                            System.out.print(formatarCasa(tabuleiro[i][j], posicaoJogador, tipoCasasTabuleiro, propriedades));
                             
                         } 
                         else {
