@@ -12,6 +12,9 @@ public class BancoImobiliarioBETA { //digite (chcp 65001) no terminal pra libera
     static int dado1;
     static int dado2;
 
+    //entradas
+    static int entrada ;
+
     final static Scanner ler = new Scanner(System.in);
 
     public static int girarDado() {
@@ -162,10 +165,6 @@ public class BancoImobiliarioBETA { //digite (chcp 65001) no terminal pra libera
         }
 
         return 0;
-    }
-
-    public static void comprarOuPagarPropriedade() {
-
     }
 
     public static void main(String[] args) {
