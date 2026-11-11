@@ -21,6 +21,10 @@ public class BancoImobiliarioBETA { //digite (chcp 65001) no terminal pra libera
         return dice.nextInt(6) + 1;
     } // gira um dado de [1, 6]
 
+    public static int sortearSorteOuReves() {
+        return dice.nextInt(20);
+    } // método para sortear um número de 0 a 19, cujo é utilizado no método SorteOuReves(); public static int sortearSorteOuReves() {
+
     public static String formatarCasa(int numeroCasa, int[] posicaoJogador, TipoCasa[] tipoCasasTabuleiro,
             Propriedade[] propriedades) {
 
@@ -40,7 +44,7 @@ public class BancoImobiliarioBETA { //digite (chcp 65001) no terminal pra libera
 
         // letra das casas especiais (tipo 4), o 0 não é usado
         // 1 cadeia, 2 imposto de renda, 3 férias, 4 lucros e dividendos, 5 vá pra cadeia
-        final String[] CASOS_A_PARTE = { "", "C", "IR", "F", "LD", "VC" };
+        final String[] CASOS_A_PARTE = { "", "CA", "IR", "FE", "LD", "VC" };
 
         TipoCasa casa = tipoCasasTabuleiro[numeroCasa];
         String fundo = RESET; // casa sem cor fica igual
@@ -108,6 +112,22 @@ public class BancoImobiliarioBETA { //digite (chcp 65001) no terminal pra libera
         }
 
         return fundo + "[" + conteudo + "]" + RESET + " "; // 7 caracteres visíveis no total
+    } //fim formatar casa
+
+    public static int verificarEntradaValida(int[] entradasValidas, int entradaJogador){
+        boolean entradaInvalida = true;
+        while(entradaInvalida){
+            for(int i = 0; i < entradasValidas.length; i++){
+                if(entradaJogador == entradasValidas[i]){
+                    entradaInvalida = false;
+                }else if(i == entradasValidas.length - 1){
+                    System.out.println("Entrada inválida, tente novamente !!!");
+                    entradaJogador = ler.nextInt();
+                }
+            }
+        }
+
+        return entradaJogador;
     }
 
     public static int colocarNoDesempate(int maiorResultadoDado, int[] somaDadosJogador,
@@ -167,8 +187,40 @@ public class BancoImobiliarioBETA { //digite (chcp 65001) no terminal pra libera
         return 0;
     }
 
+    public static void pisarCasa(int[] posicaoJogador, int[] dinheiroJogador, int jogadorDaVez, TipoCasa[] casasTabuleiro, Propriedade[] propriedades, Companhia[] companhias){
+        TipoCasa casaPisadaPeloJogador = casasTabuleiro[posicaoJogador[jogadorDaVez]];
+        switch(casaPisadaPeloJogador.getTipoDaCasa()){
+            case 1: //propriedade
+                Propriedade propriedadeCasa = propriedades[casaPisadaPeloJogador.getPosicaoCartaCasa()];
+                if(propriedadeCasa.getProprietario() == -1){
+                    System.out.printf("Você quer comprar o(a) %s por R$%d,00\n", propriedadeCasa.getNome(), propriedadeCasa.getPreco());
+                    System.out.println("1 ---> Sim      2 ---> Não");
+                    entrada = ler.nextInt();
+                    entrada = verificarEntradaValida(new int[] {1,2}, entrada);
+
+                    if(entrada == 1){
+                        System.out.printf("O(a) %s agora é seu(sua) !!!\n", propriedadeCasa.getNome());
+                        dinheiroJogador[jogadorDaVez] -= propriedadeCasa.getPreco();
+                        propriedadeCasa.setProprietario(jogadorDaVez);
+                    }
+
+                }
+                break;
+            case 2: //companhia
+
+                break;
+            case 3: //sorte ou revés
+
+                break;
+            case 4: //casos a parte
+
+                break;
+            
+        }
+    }
+
     public static void main(String[] args) {
-        int jogadorDaVez = 0;
+        int jogadorDaVez = 0; //[0, 4]
         int[] somaDadosJogador = new int[JOGADORES];
         int[] posicaoJogador = new int[JOGADORES];
         int[] dinheiroJogador = {2558000, 2558000, 2558000, 2558000};
@@ -198,7 +250,7 @@ public class BancoImobiliarioBETA { //digite (chcp 65001) no terminal pra libera
                 { 10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0 }
         };
 
-        TipoCasa[] tipoCasasTabuleiro = TipoCasa.criarTabuleiro(); 
+        TipoCasa[] casasTabuleiro = TipoCasa.criarTabuleiro(); 
         Propriedade[] propriedades = Propriedade.criarPropriedades();
         Companhia[] companhias = Companhia.criarCompanhias();
 
@@ -224,7 +276,7 @@ public class BancoImobiliarioBETA { //digite (chcp 65001) no terminal pra libera
 
         System.out.printf("\nJogador %d começa:\n\n", jogadorDaVez + 1);
 
-        while (true) {
+        while (true) { //jogo
 
             System.out.printf("Jogador %d: R$%d\n", jogadorDaVez + 1, dinheiroJogador[jogadorDaVez]);
 
@@ -271,7 +323,7 @@ public class BancoImobiliarioBETA { //digite (chcp 65001) no terminal pra libera
 
                         if (tabuleiro[i][j] >= 0) {
 
-                            System.out.print(formatarCasa(tabuleiro[i][j], posicaoJogador, tipoCasasTabuleiro, propriedades));
+                            System.out.print(formatarCasa(tabuleiro[i][j], posicaoJogador, casasTabuleiro, propriedades));
                             
                         } 
                         else {

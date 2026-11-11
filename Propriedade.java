@@ -39,7 +39,7 @@ public class Propriedade {
     //construtores
     public Propriedade(String nome, int preco, int grupo, int aluguel, int precoCasaHotel, int valorHipoteca){
         this.nome = nome;
-        this.proprietario = 0; //cria a propriedade sem proprietario
+        this.proprietario = -1; //cria a propriedade sem proprietario
         this.preco = preco;
         this.grupo = grupo; 
         this.aluguel = aluguel;
