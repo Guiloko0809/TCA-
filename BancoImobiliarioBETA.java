@@ -414,7 +414,7 @@ public class BancoImobiliarioBETA { //digite (chcp 65001) no terminal pra libera
                     
                 }else if(propriedadeDaCasa.getProprietario() != jogadorDaVez){
                     if(dinheiroDosJogadores[jogadorDaVez] >= propriedadeDaCasa.getAluguel()){
-                        System.out.printf("Você pisou na propriedade do jogador %d e teve que pagar R$%d.00\n", propriedadeDaCasa.getProprietario(), propriedadeDaCasa.getAluguel());
+                        System.out.printf("Você pisou na propriedade do jogador %d e teve que pagar R$%d.00\n", propriedadeDaCasa.getProprietario() + 1, propriedadeDaCasa.getAluguel());
                         dinheiroDosJogadores[jogadorDaVez] -= propriedadeDaCasa.getAluguel(); //jogador da vez paga
                         dinheiroDosJogadores[propriedadeDaCasa.getProprietario()] += propriedadeDaCasa.getAluguel(); //proprietario recebe
                     }else{
@@ -439,7 +439,13 @@ public class BancoImobiliarioBETA { //digite (chcp 65001) no terminal pra libera
                     }
 
                 }else if(companhiaDaCasa.getProprietario() != jogadorDaVez){
-                
+                    if(dinheiroDosJogadores[jogadorDaVez] >= companhiaDaCasa.getValorConta() * somaDadoJogadores[jogadorDaVez]){
+                        System.out.printf("Você pisou na companhia do jogador %d e teve que pagar R$%d.00\n", companhiaDaCasa.getProprietario() + 1, companhiaDaCasa.getValorConta() * somaDadoJogadores[jogadorDaVez]);
+                        dinheiroDosJogadores[jogadorDaVez] -= companhiaDaCasa.getValorConta() * somaDadoJogadores[jogadorDaVez];
+                        dinheiroDosJogadores[companhiaDaCasa.getProprietario()] += (companhiaDaCasa.getValorConta() * somaDadoJogadores[jogadorDaVez]);
+                    }else{
+                        //o cara vai ter que vender as propriedades que tem, ainda não decidimos como vamos fazer isso
+                    }
                 }
                 break;
             case 3: //sorte ou revés
