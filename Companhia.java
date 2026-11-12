@@ -21,7 +21,7 @@ public class Companhia {
     public Companhia(String nome, int preco, int valorConta, int valorHipoteca){
         this.nome = nome;
         this.preco = preco;
-        this.proprietario = 0; //cria sem proprietário
+        this.proprietario = -1; //cria sem proprietário
         this.valorConta = valorConta;
         this.valorHipoteca = valorHipoteca;
     }

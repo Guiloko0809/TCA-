@@ -18,7 +18,7 @@ public class BancoImobiliarioBETA { //digite (chcp 65001) no terminal pra libera
     static int valorDado2;
 
     // o que o jogador digita no teclado (opção de menu ou número de um jogador)
-    static int opcaoEscolhida;
+    static int entrada;
 
     final static Scanner teclado = new Scanner(System.in);
 
@@ -30,7 +30,7 @@ public class BancoImobiliarioBETA { //digite (chcp 65001) no terminal pra libera
         return geradorAleatorio.nextInt(20);
     } // método para sortear um número de 0 a 19, cujo é utilizado no método sorteOuReves()
 
-    public static void sorteOuReves(int jogadorDaVez, int[] turnosRestantesNaCadeia, int[] dinheiroDosJogadores){
+    public static void sorteOuReves(int jogadorDaVez, int[] turnosRestantesNaCadeia, int[] dinheiroDosJogadores, int[] posicaoDosJogadores){
 
 
         //Casos 0 ao 7: O jogador ganha dinheiro
@@ -161,19 +161,19 @@ public class BancoImobiliarioBETA { //digite (chcp 65001) no terminal pra libera
 
                 System.out.println("Você planeja um assalto à propriedade de um rival!");
                 System.out.println("Quem você quer assaltar?");
-                opcaoEscolhida = teclado.nextInt();
-                opcaoEscolhida = verificarEntradaValida(new int[] {1, 2, 3, 4}, opcaoEscolhida);
+                entrada = teclado.nextInt();
+                entrada = verificarEntradaValida(new int[] {1, 2, 3, 4}, entrada);
 
                 // o jogador digita o número (1 a 4), mas o vetor começa no 0, por isso o "- 1"
-                while (opcaoEscolhida - 1 == jogadorDaVez) {
+                while (entrada - 1 == jogadorDaVez) {
                     System.out.println("Entrada inválida, você não pode assaltar você mesmo!");
-                    opcaoEscolhida = teclado.nextInt();
-                    opcaoEscolhida = verificarEntradaValida(new int[] {1, 2, 3, 4}, opcaoEscolhida);
+                    entrada = teclado.nextInt();
+                    entrada = verificarEntradaValida(new int[] {1, 2, 3, 4}, entrada);
                 }
 
 
-                System.out.printf("Você invadiu a propriedade do Jogador %d e roubou R$60.000!\n", opcaoEscolhida);
-                dinheiroDosJogadores[opcaoEscolhida - 1] -= 60000;
+                System.out.printf("Você invadiu a propriedade do Jogador %d e roubou R$60.000!\n", entrada);
+                dinheiroDosJogadores[entrada - 1] -= 60000;
                 dinheiroDosJogadores[jogadorDaVez] += 60000;
 
                 break;
@@ -181,19 +181,19 @@ public class BancoImobiliarioBETA { //digite (chcp 65001) no terminal pra libera
             case 17:
                 System.out.println("Você hackeou o Pix de alguém e fez uma transferência misteriosa!");
                 System.out.println("Quem você quer hackear?");
-                opcaoEscolhida = teclado.nextInt();
-                opcaoEscolhida = verificarEntradaValida(new int[] {1, 2, 3, 4}, opcaoEscolhida);
+                entrada = teclado.nextInt();
+                entrada = verificarEntradaValida(new int[] {1, 2, 3, 4}, entrada);
 
 
-                while (opcaoEscolhida - 1 == jogadorDaVez) {
+                while (entrada - 1 == jogadorDaVez) {
                     System.out.println("Entrada inválida, você não pode hackear você mesmo!");
-                    opcaoEscolhida = teclado.nextInt();
-                    opcaoEscolhida = verificarEntradaValida(new int[] {1, 2, 3, 4}, opcaoEscolhida);
+                    entrada = teclado.nextInt();
+                    entrada = verificarEntradaValida(new int[] {1, 2, 3, 4}, entrada);
                 }
+    
 
-
-                System.out.printf("Você tirou R$45.000 da conta do Jogador %d!\n", opcaoEscolhida);
-                dinheiroDosJogadores[opcaoEscolhida - 1] -= 45000;
+                System.out.printf("Você tirou R$45.000 da conta do Jogador %d!\n", entrada);
+                dinheiroDosJogadores[entrada - 1] -= 45000;
                 dinheiroDosJogadores[jogadorDaVez] += 45000;
 
                 break;
@@ -201,6 +201,7 @@ public class BancoImobiliarioBETA { //digite (chcp 65001) no terminal pra libera
             case 18:
                 System.out.println("Você foi pego sonegando impostos e a policia federal bateu na sua porta..");
                 System.out.println("Você foi para cadeia, fique 3 turnos sem jogar!");
+                posicaoDosJogadores[jogadorDaVez] = POSICAO_CADEIA;
                 turnosRestantesNaCadeia[jogadorDaVez] = 3;
 
                 break;
@@ -209,19 +210,20 @@ public class BancoImobiliarioBETA { //digite (chcp 65001) no terminal pra libera
                 System.out.println("Você deu propina para um policial federal e mandou ele prender alguem!");
                 System.out.println("Quem você quer mandar para a cadeia?");
 
-                opcaoEscolhida = teclado.nextInt();
-                opcaoEscolhida = verificarEntradaValida(new int[] {1, 2, 3, 4}, opcaoEscolhida);
+                entrada = teclado.nextInt();
+                entrada = verificarEntradaValida(new int[] {1, 2, 3, 4}, entrada);
 
 
-                while (opcaoEscolhida - 1 == jogadorDaVez) {
+                while (entrada - 1 == jogadorDaVez) {
                     System.out.println("Entrada inválida, você não pode mandar você mesmo para a cadeia!");
-                    opcaoEscolhida = teclado.nextInt();
-                    opcaoEscolhida = verificarEntradaValida(new int[] {1, 2, 3, 4}, opcaoEscolhida);
+                    entrada = teclado.nextInt();
+                    entrada = verificarEntradaValida(new int[] {1, 2, 3, 4}, entrada);
                 }
 
 
-                System.out.printf("O Jogador %d foi preso, ficará 3 turnos sem jogar !!!\n", opcaoEscolhida);
-                turnosRestantesNaCadeia[opcaoEscolhida - 1] = 3;
+                System.out.printf("O Jogador %d foi preso, ficará 3 turnos sem jogar !!!\n", entrada);
+                posicaoDosJogadores[entrada - 1] = POSICAO_CADEIA;
+                turnosRestantesNaCadeia[entrada - 1] = 3;
 
                 break;
 
@@ -233,7 +235,7 @@ public class BancoImobiliarioBETA { //digite (chcp 65001) no terminal pra libera
 
 
     public static String formatarCasa(int numeroDaCasa, int[] posicaoDosJogadores, TipoCasa[] casasDoTabuleiro,
-            Propriedade[] propriedades) {
+        Propriedade[] propriedades) {
 
         // cor de cada jogador: vermelho, azul, verde e amarelo
         final String[] CORES_DOS_JOGADORES = { "\u001B[31m", "\u001B[34m", "\u001B[32m", "\u001B[33m" };
@@ -319,12 +321,12 @@ public class BancoImobiliarioBETA { //digite (chcp 65001) no terminal pra libera
         return fundoDaCasa + "[" + conteudoDaCasa + "]" + CODIGO_RESETAR_COR + " "; // 7 caracteres visíveis no total
     }//fim do formatar casa
 
-    public static int colocarNoDesempate(int maiorSomaDosDados, int[] somaDosDadosDosJogadores,
+    public static int colocarNoDesempate(int maiorSomaDosDados, int[] somaDadoJogadores,
             boolean[] jogadorEstaNoDesempate) {
         int quantidadeDeJogadoresNoDesempate = 0;
 
         for (int indiceDoJogador = 0; indiceDoJogador < JOGADORES; indiceDoJogador++) { // só coloca o jogador no desempate
-            if (somaDosDadosDosJogadores[indiceDoJogador] == maiorSomaDosDados) {
+            if (somaDadoJogadores[indiceDoJogador] == maiorSomaDosDados) {
                 quantidadeDeJogadoresNoDesempate++;
                 jogadorEstaNoDesempate[indiceDoJogador] = true;
             }
@@ -351,7 +353,7 @@ public class BancoImobiliarioBETA { //digite (chcp 65001) no terminal pra libera
         return opcaoDigitada;
     }
 
-    public static int decidirJogadorQueComeca(int quantidadeDeJogadoresNoDesempate, boolean[] jogadorEstaNoDesempate, int[] somaDosDadosDosJogadores,
+    public static int decidirJogadorQueComeca(int quantidadeDeJogadoresNoDesempate, boolean[] jogadorEstaNoDesempate, int[] somaDadoJogadores,
             int maiorSomaDosDados) {
         while (quantidadeDeJogadoresNoDesempate > 1) {
             System.out.println("\nDesempate:");
@@ -362,20 +364,20 @@ public class BancoImobiliarioBETA { //digite (chcp 65001) no terminal pra libera
                     System.out.printf("Jogador %d:\n", indiceDoJogador + 1);
                     valorDado1 = girarDado();
                     valorDado2 = girarDado();
-                    somaDosDadosDosJogadores[indiceDoJogador] = valorDado1 + valorDado2;
+                    somaDadoJogadores[indiceDoJogador] = valorDado1 + valorDado2;
                     DadoAnimado.animarDados(valorDado1, valorDado2);
-                    System.out.printf("\n---------- RESULTADO FINAL: %d ---------\n", somaDosDadosDosJogadores[indiceDoJogador]);
+                    System.out.printf("\n---------- RESULTADO FINAL: %d ---------\n", somaDadoJogadores[indiceDoJogador]);
 
 
-                    if (somaDosDadosDosJogadores[indiceDoJogador] > maiorSomaDosDados) {
-                        maiorSomaDosDados = somaDosDadosDosJogadores[indiceDoJogador];
+                    if (somaDadoJogadores[indiceDoJogador] > maiorSomaDosDados) {
+                        maiorSomaDosDados = somaDadoJogadores[indiceDoJogador];
                     }
                 }
             }
 
             for (int indiceDoJogador = 0; indiceDoJogador < JOGADORES; indiceDoJogador++) {
                 if (jogadorEstaNoDesempate[indiceDoJogador]) {
-                    if (somaDosDadosDosJogadores[indiceDoJogador] == maiorSomaDosDados) {
+                    if (somaDadoJogadores[indiceDoJogador] == maiorSomaDosDados) {
                         quantidadeDeJogadoresNoDesempate++;
                     } else {
                         jogadorEstaNoDesempate[indiceDoJogador] = false;
@@ -393,7 +395,7 @@ public class BancoImobiliarioBETA { //digite (chcp 65001) no terminal pra libera
         return 0;
     }
 
-    public static void pisarCasa(int[] posicaoDosJogadores, int[] dinheiroDosJogadores, int[] turnosRestantesNaCadeia, int jogadorDaVez, TipoCasa[] casasDoTabuleiro, Propriedade[] propriedades, Companhia[] companhias){
+    public static void pisarCasa(int[] posicaoDosJogadores, int[] dinheiroDosJogadores, int[] turnosRestantesNaCadeia, int[] somaDadoJogadores, int jogadorDaVez, TipoCasa[] casasDoTabuleiro, Propriedade[] propriedades, Companhia[] companhias){
         TipoCasa casaPisadaPeloJogador = casasDoTabuleiro[posicaoDosJogadores[jogadorDaVez]];
         switch(casaPisadaPeloJogador.getTipoDaCasa()){
             case 1: //propriedade
@@ -401,17 +403,15 @@ public class BancoImobiliarioBETA { //digite (chcp 65001) no terminal pra libera
                 if(propriedadeDaCasa.getProprietario() == -1){
                     System.out.printf("Você quer comprar o(a) %s por R$%d.00\n", propriedadeDaCasa.getNome(), propriedadeDaCasa.getPreco());
                     System.out.println("1 ---> Sim      2 ---> Não");
-                    opcaoEscolhida = teclado.nextInt();
-                    opcaoEscolhida = verificarEntradaValida(new int[] {1,2}, opcaoEscolhida);
+                    entrada = teclado.nextInt();
+                    entrada = verificarEntradaValida(new int[] {1,2}, entrada);
 
-                    if(opcaoEscolhida == 1){
+                    if(entrada == 1){
                         System.out.printf("O(a) %s agora é seu(sua) !!!\n", propriedadeDaCasa.getNome());
                         dinheiroDosJogadores[jogadorDaVez] -= propriedadeDaCasa.getPreco();
                         propriedadeDaCasa.setProprietario(jogadorDaVez);
-
-                        System.out.println(propriedades[casaPisadaPeloJogador.getPosicaoCartaCasa()].getProprietario());
                     }
-
+                    
                 }else if(propriedadeDaCasa.getProprietario() != jogadorDaVez){
                     if(dinheiroDosJogadores[jogadorDaVez] >= propriedadeDaCasa.getAluguel()){
                         System.out.printf("Você pisou na propriedade do jogador %d e teve que pagar R$%d.00\n", propriedadeDaCasa.getProprietario(), propriedadeDaCasa.getAluguel());
@@ -424,10 +424,26 @@ public class BancoImobiliarioBETA { //digite (chcp 65001) no terminal pra libera
 
                 break;
             case 2: //companhia
+                Companhia companhiaDaCasa = companhias[casaPisadaPeloJogador.getPosicaoCartaCasa()];
 
+                if(companhiaDaCasa.getProprietario() == -1){
+                    System.out.printf("Você quer comprar o(a) %s como companhia por R$%d.00\n", companhiaDaCasa.getNome(), companhiaDaCasa.getPreco());
+                    System.out.println("1 ---> Sim      2 ---> Não");
+                    entrada = teclado.nextInt();
+                    entrada = verificarEntradaValida(new int[] {1,2}, entrada);
+
+                    if(entrada == 1){
+                        System.out.printf("O(a) %s agora é seu(sua)\n", companhiaDaCasa.getNome());
+                        dinheiroDosJogadores[jogadorDaVez] -= companhiaDaCasa.getPreco();
+                        companhiaDaCasa.setProprietario(jogadorDaVez);
+                    }
+
+                }else if(companhiaDaCasa.getProprietario() != jogadorDaVez){
+                
+                }
                 break;
             case 3: //sorte ou revés
-                sorteOuReves(jogadorDaVez, turnosRestantesNaCadeia, dinheiroDosJogadores);
+                sorteOuReves(jogadorDaVez, turnosRestantesNaCadeia, dinheiroDosJogadores, posicaoDosJogadores);
                 break;
             case 4: //casos a parte
                 // a posição da carta diz qual caso a parte é (mesma ordem do SIGLAS_CASAS_ESPECIAIS no formatarCasa)
@@ -466,7 +482,7 @@ public class BancoImobiliarioBETA { //digite (chcp 65001) no terminal pra libera
 
     public static void main(String[] args) {
         int jogadorDaVez = 0;
-        int[] somaDosDadosDosJogadores = new int[JOGADORES];
+        int[] somaDadoJogadores = new int[JOGADORES];
         int[] posicaoDosJogadores = new int[JOGADORES];
         int[] dinheiroDosJogadores = {2558000, 2558000, 2558000, 2558000};
         // cadeia
@@ -503,11 +519,11 @@ public class BancoImobiliarioBETA { //digite (chcp 65001) no terminal pra libera
             System.out.printf("Jogador %d:\n", jogadorDaVez + 1);
             valorDado1 = girarDado();
             valorDado2 = girarDado();
-            somaDosDadosDosJogadores[indiceDoJogador] = valorDado1 + valorDado2;
+            somaDadoJogadores[indiceDoJogador] = valorDado1 + valorDado2;
             System.out.println(valorDado1 + "\n" + valorDado2);
 
-            if (somaDosDadosDosJogadores[indiceDoJogador] > maiorSomaDosDados) {
-                maiorSomaDosDados = somaDosDadosDosJogadores[indiceDoJogador];
+            if (somaDadoJogadores[indiceDoJogador] > maiorSomaDosDados) {
+                maiorSomaDosDados = somaDadoJogadores[indiceDoJogador];
             }
 
             jogadorDaVez++;
@@ -515,8 +531,8 @@ public class BancoImobiliarioBETA { //digite (chcp 65001) no terminal pra libera
 
         System.out.println();
 
-        quantidadeDeJogadoresNoDesempate = colocarNoDesempate(maiorSomaDosDados, somaDosDadosDosJogadores, jogadorEstaNoDesempate);
-        jogadorDaVez = decidirJogadorQueComeca(quantidadeDeJogadoresNoDesempate, jogadorEstaNoDesempate, somaDosDadosDosJogadores,
+        quantidadeDeJogadoresNoDesempate = colocarNoDesempate(maiorSomaDosDados, somaDadoJogadores, jogadorEstaNoDesempate);
+        jogadorDaVez = decidirJogadorQueComeca(quantidadeDeJogadoresNoDesempate, jogadorEstaNoDesempate, somaDadoJogadores,
                                                maiorSomaDosDados);
 
         System.out.printf("\nJogador %d começa:\n\n", jogadorDaVez + 1);
@@ -532,11 +548,11 @@ public class BancoImobiliarioBETA { //digite (chcp 65001) no terminal pra libera
             else {
                 valorDado1 = girarDado();
                 valorDado2 = girarDado();
-                somaDosDadosDosJogadores[jogadorDaVez] = valorDado1 + valorDado2;
+                somaDadoJogadores[jogadorDaVez] = valorDado1 + valorDado2;
                 DadoAnimado.animarDados(valorDado1, valorDado2); //animação dado
-                System.out.printf("\n---------- RESULTADO FINAL: %d ---------\n", somaDosDadosDosJogadores[jogadorDaVez]);
+                System.out.printf("\n---------- RESULTADO FINAL: %d ---------\n", somaDadoJogadores[jogadorDaVez]);
 
-                posicaoDosJogadores[jogadorDaVez] += somaDosDadosDosJogadores[jogadorDaVez]; //soma a posição do jogador de acordo com o resultado dos dados
+                posicaoDosJogadores[jogadorDaVez] += somaDadoJogadores[jogadorDaVez]; //soma a posição do jogador de acordo com o resultado dos dados
 
                 if(posicaoDosJogadores[jogadorDaVez] >= CASAS_TABULEIRO){
                     System.out.println("Você deu uma volta no tabuleiro, ganhando assim mais R$ 200.000");
@@ -552,9 +568,11 @@ public class BancoImobiliarioBETA { //digite (chcp 65001) no terminal pra libera
                         jogadorJogaDeNovo = true;
                     }else{
                         System.out.println("Você foi pra cadeia, fique 3 turnos sem jogar !!!");
+                        posicaoDosJogadores[jogadorDaVez] = POSICAO_CADEIA;
                         turnosRestantesNaCadeia[jogadorDaVez] = 3;
                         jogadorJogaDeNovo = false;
                         vezesSeguidasComDadosIguais = 0;
+                        
                     }
                 }else{
                     jogadorJogaDeNovo = false;
@@ -580,14 +598,8 @@ public class BancoImobiliarioBETA { //digite (chcp 65001) no terminal pra libera
                     System.out.println("\n");
                 }
 
-                pisarCasa(posicaoDosJogadores, dinheiroDosJogadores, turnosRestantesNaCadeia, jogadorDaVez, casasDoTabuleiro, propriedades, companhias);
+                pisarCasa(posicaoDosJogadores, dinheiroDosJogadores, turnosRestantesNaCadeia, somaDadoJogadores, jogadorDaVez, casasDoTabuleiro, propriedades, companhias);
                 //o que acontece quando o jogador pisar na casa, antes de mudar o jogador da vez
-
-                if(turnosRestantesNaCadeia[jogadorDaVez] > 0){
-                    //se foi preso nessa jogada (vá pra cadeia, sorte ou revés), perde a jogada extra dos dados iguais
-                    jogadorJogaDeNovo = false;
-                    vezesSeguidasComDadosIguais = 0;
-                }
 
             }
 
