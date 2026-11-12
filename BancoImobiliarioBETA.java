@@ -241,12 +241,12 @@ public class BancoImobiliarioBETA { //digite (chcp 65001) no terminal pra libera
         final String[] CORES_DOS_JOGADORES = { "\u001B[31m", "\u001B[34m", "\u001B[32m", "\u001B[33m" };
         final String CODIGO_RESETAR_COR = "\u001B[0m";
 
-        // fundo de cada grupo, o 0 não é usado (verde, laranja, azul claro, rosa, roxo, azul escuro, amarelo)
-        final String[] FUNDO_NORMAL_POR_GRUPO = { "", "\u001B[30;48;5;40m", "\u001B[30;48;5;208m", "\u001B[30;48;5;117m",
+        // fundo de cada grupo (vermelho, verde, laranja, azul claro, rosa, roxo, azul escuro, amarelo)
+        final String[] FUNDO_NORMAL_POR_GRUPO = { "\u001B[101m", "\u001B[30;48;5;40m", "\u001B[30;48;5;208m", "\u001B[30;48;5;117m",
                 "\u001B[30;48;5;205m", "\u001B[30;48;5;141m", "\u001B[30;48;5;33m", "\u001B[30;48;5;226m" };
 
         // mesmos grupos, só que mais escuros (usados quando tem qualquer jogador na casa)
-        final String[] FUNDO_ESCURO_POR_GRUPO = { "", "\u001B[97;48;5;22m", "\u001B[97;48;5;94m", "\u001B[97;48;5;17m",
+        final String[] FUNDO_ESCURO_POR_GRUPO = { "\u001B[48;5;52m", "\u001B[97;48;5;22m", "\u001B[97;48;5;94m", "\u001B[97;48;5;17m",
                 "\u001B[97;48;5;125m", "\u001B[97;48;5;54m", "\u001B[97;48;5;17m", "\u001B[97;48;5;94m" };
 
         // sigla das casas especiais (tipo 4), na ordem da posição da carta da casa
@@ -283,6 +283,15 @@ public class BancoImobiliarioBETA { //digite (chcp 65001) no terminal pra libera
         else if (casaAtual.getTipoDaCasa() == 3) {
 
             siglaDaCasa = "SR";
+            fundoDaCasa = FUNDO_NORMAL_POR_GRUPO[0];
+            
+            for (int indiceDoJogador = 0; indiceDoJogador < JOGADORES; indiceDoJogador++) {
+
+                if (posicaoDosJogadores[indiceDoJogador] == numeroDaCasa) {
+                    fundoDaCasa = FUNDO_ESCURO_POR_GRUPO[0];
+                }
+
+            }
 
         }
         else if (casaAtual.getTipoDaCasa() == 4) {
