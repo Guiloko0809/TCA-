@@ -245,7 +245,7 @@ public class BancoImobiliarioBETA { //digite (chcp 65001) no terminal pra libera
 
         // letra das casas especiais (tipo 4), o 0 não é usado
         // 1 cadeia, 2 imposto de renda, 3 férias, 4 lucros e dividendos, 5 vá pra cadeia
-        final String[] CASOS_A_PARTE = { "", "CA", "IR", "FE", "LD", "VC" };
+        final String[] CASOS_A_PARTE = {"CA", "IR", "FE", "LD", "VC" };
 
         TipoCasa casa = tipoCasasTabuleiro[numeroCasa];
         String fundo = RESET; // casa sem cor fica igual
