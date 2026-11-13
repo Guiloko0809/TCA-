@@ -4,7 +4,7 @@ import java.util.Scanner;
 public class BancoImobiliarioBETA { //digite (chcp 65001) no terminal pra liberar os caracteres (windows apenas)
 
     // CONSTANTES
-    public static final int JOGADORES = 4;
+    public static int JOGADORES ; //não é final porque muda de acordo com o que o player escolhe
     public static final int CASAS_TABULEIRO = 40;
 
     // casas especiais
@@ -20,7 +20,7 @@ public class BancoImobiliarioBETA { //digite (chcp 65001) no terminal pra libera
     // o que o jogador digita no teclado (opção de menu ou número de um jogador)
     static int entrada;
 
-    final static Scanner teclado = new Scanner(System.in);
+    final static Scanner ler = new Scanner(System.in);
 
     public static int girarDado() {
         return geradorAleatorio.nextInt(6) + 1;
@@ -161,13 +161,19 @@ public class BancoImobiliarioBETA { //digite (chcp 65001) no terminal pra libera
 
                 System.out.println("Você planeja um assalto à propriedade de um rival!");
                 System.out.println("Quem você quer assaltar?");
-                entrada = teclado.nextInt();
+                entrada = ler.nextInt();
                 entrada = verificarEntradaValida(new int[] {1, 2, 3, 4}, entrada);
 
                 // o jogador digita o número (1 a 4), mas o vetor começa no 0, por isso o "- 1"
-                while (entrada - 1 == jogadorDaVez) {
-                    System.out.println("Entrada inválida, você não pode assaltar você mesmo!");
-                    entrada = teclado.nextInt();
+                while (entrada - 1 == jogadorDaVez || entrada > JOGADORES) {
+                    if(entrada - 1 == jogadorDaVez){ //duas mensagens diferentes de acordo com o caso
+                        System.out.println("Entrada inválida !!! Você não pode assaltar você mesmo !!!");
+                    }else{
+                        System.out.println("Entrada inválida !!! Jogador não existe !!!");
+                    }
+
+
+                    entrada = ler.nextInt();
                     entrada = verificarEntradaValida(new int[] {1, 2, 3, 4}, entrada);
                 }
 
@@ -181,13 +187,19 @@ public class BancoImobiliarioBETA { //digite (chcp 65001) no terminal pra libera
             case 17:
                 System.out.println("Você hackeou o Pix de alguém e fez uma transferência misteriosa!");
                 System.out.println("Quem você quer hackear?");
-                entrada = teclado.nextInt();
+                entrada = ler.nextInt();
                 entrada = verificarEntradaValida(new int[] {1, 2, 3, 4}, entrada);
 
 
-                while (entrada - 1 == jogadorDaVez) {
-                    System.out.println("Entrada inválida, você não pode hackear você mesmo!");
-                    entrada = teclado.nextInt();
+                while (entrada - 1 == jogadorDaVez || entrada > JOGADORES) {
+                    if(entrada - 1 == jogadorDaVez){ //duas mensagens diferentes de acordo com o caso
+                        System.out.println("Entrada inválida !!! Você não pode hackear você mesmo !!!");
+                    }else{
+                        System.out.println("Entrada inválida !!! Jogador não existe !!!");
+                    }
+
+
+                    entrada = ler.nextInt();
                     entrada = verificarEntradaValida(new int[] {1, 2, 3, 4}, entrada);
                 }
     
@@ -210,13 +222,19 @@ public class BancoImobiliarioBETA { //digite (chcp 65001) no terminal pra libera
                 System.out.println("Você deu propina para um policial federal e mandou ele prender alguem!");
                 System.out.println("Quem você quer mandar para a cadeia?");
 
-                entrada = teclado.nextInt();
+                entrada = ler.nextInt();
                 entrada = verificarEntradaValida(new int[] {1, 2, 3, 4}, entrada);
 
 
-                while (entrada - 1 == jogadorDaVez) {
-                    System.out.println("Entrada inválida, você não pode mandar você mesmo para a cadeia!");
-                    entrada = teclado.nextInt();
+                while (entrada - 1 == jogadorDaVez || entrada > JOGADORES) {
+                    if(entrada - 1 == jogadorDaVez){
+                        System.out.println("Entrada inválida !!! Você não pode mandar você mesmo pra cadeia !!!");
+                    }else{
+                        System.out.println("Entrada inválida !!! Jogador não existe !!!");
+                    }
+
+
+                    entrada = ler.nextInt();
                     entrada = verificarEntradaValida(new int[] {1, 2, 3, 4}, entrada);
                 }
 
@@ -345,21 +363,21 @@ public class BancoImobiliarioBETA { //digite (chcp 65001) no terminal pra libera
         return quantidadeDeJogadoresNoDesempate;
     }
 
-    public static int verificarEntradaValida(int[] opcoesValidas, int opcaoDigitada){
+    public static int verificarEntradaValida(int[] opcoesValidas, int entrada){
         boolean opcaoInvalida = true;
         while(opcaoInvalida){
             for(int indiceDaOpcao = 0; indiceDaOpcao < opcoesValidas.length; indiceDaOpcao++){
-                if(opcaoDigitada == opcoesValidas[indiceDaOpcao]){
+                if(entrada == opcoesValidas[indiceDaOpcao]){
                     opcaoInvalida = false;
                     break;
                 }else if(indiceDaOpcao == opcoesValidas.length - 1){
                     System.out.println("Entrada inválida, tente novamente !!!");
-                    opcaoDigitada = teclado.nextInt();
+                    entrada = ler.nextInt();
                 }
             }
         }
 
-        return opcaoDigitada;
+        return entrada;
     }
 
     public static int decidirJogadorQueComeca(int quantidadeDeJogadoresNoDesempate, boolean[] jogadorEstaNoDesempate, int[] somaDadoJogadores,
@@ -412,7 +430,7 @@ public class BancoImobiliarioBETA { //digite (chcp 65001) no terminal pra libera
                 if(propriedadeDaCasa.getProprietario() == -1){
                     System.out.printf("Você quer comprar o(a) %s por R$%d.00\n", propriedadeDaCasa.getNome(), propriedadeDaCasa.getPreco());
                     System.out.println("1 ---> Sim      2 ---> Não");
-                    entrada = teclado.nextInt();
+                    entrada = ler.nextInt();
                     entrada = verificarEntradaValida(new int[] {1,2}, entrada);
 
                     if(entrada == 1){
@@ -438,7 +456,7 @@ public class BancoImobiliarioBETA { //digite (chcp 65001) no terminal pra libera
                 if(companhiaDaCasa.getProprietario() == -1){
                     System.out.printf("Você quer comprar o(a) %s como companhia por R$%d.00\n", companhiaDaCasa.getNome(), companhiaDaCasa.getPreco());
                     System.out.println("1 ---> Sim      2 ---> Não");
-                    entrada = teclado.nextInt();
+                    entrada = ler.nextInt();
                     entrada = verificarEntradaValida(new int[] {1,2}, entrada);
 
                     if(entrada == 1){
@@ -496,6 +514,11 @@ public class BancoImobiliarioBETA { //digite (chcp 65001) no terminal pra libera
 
 
     public static void main(String[] args) {
+        System.out.println("Com quantos jogadores quer jogar? Respostas de 2 a 4");
+        entrada = ler.nextInt();
+        entrada = verificarEntradaValida(new int[] {2, 3, 4}, entrada);
+        JOGADORES = entrada;
+
         int jogadorDaVez = 0;
         int[] somaDadoJogadores = new int[JOGADORES];
         int[] posicaoDosJogadores = new int[JOGADORES];
@@ -559,6 +582,10 @@ public class BancoImobiliarioBETA { //digite (chcp 65001) no terminal pra libera
             if (turnosRestantesNaCadeia[jogadorDaVez] > 0) {
                 System.out.printf("Você está na cadeia, espere mais %d turnos e seja livre !!!\n", turnosRestantesNaCadeia[jogadorDaVez]);
                 turnosRestantesNaCadeia[jogadorDaVez]--;
+                jogadorJogaDeNovo = false;
+                //se for pra cadeia desativa o jogar de novo, pra não ter risco dele jogar de novo, tirar dados iguais
+                //acabar indo pra cadeia de outra forma (sorte ou reves, casa especial etc.) e jogadorJogaDeNovoContinuar
+
             }
             else {
                 valorDado1 = girarDado();
@@ -585,7 +612,6 @@ public class BancoImobiliarioBETA { //digite (chcp 65001) no terminal pra libera
                         System.out.println("Você foi pra cadeia, fique 3 turnos sem jogar !!!");
                         posicaoDosJogadores[jogadorDaVez] = POSICAO_CADEIA;
                         turnosRestantesNaCadeia[jogadorDaVez] = 3;
-                        jogadorJogaDeNovo = false;
                         vezesSeguidasComDadosIguais = 0;
                         
                     }
@@ -625,7 +651,7 @@ public class BancoImobiliarioBETA { //digite (chcp 65001) no terminal pra libera
             }
 
             // digite 67 pra encerrar o jogo
-            if (teclado.nextInt() == 67) {
+            if (ler.nextInt() == 67) {
                 break;
             }
         } // fim do while
