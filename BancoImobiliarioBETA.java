@@ -336,7 +336,9 @@ public class BancoImobiliarioBETA { //digite (chcp 65001) no terminal pra libera
 
         if (quantidadeDeJogadoresNaCasa > 0) {
 
-            conteudoDaCasa = " " + blocosDosJogadores + " ".repeat(3 - quantidadeDeJogadoresNaCasa);
+            
+            String espacoInicial = (quantidadeDeJogadoresNaCasa < 4) ? " " : "";
+            conteudoDaCasa = espacoInicial + blocosDosJogadores + " ".repeat(Math.max(0, 3 - quantidadeDeJogadoresNaCasa));
              // sempre 4 caracteres visíveis
         }
         else {
