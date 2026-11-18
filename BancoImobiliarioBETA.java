@@ -1,10 +1,12 @@
 import java.util.Random;
 import java.util.Scanner;
+import java.util.Arrays;
 
 public class BancoImobiliarioBETA { //digite (chcp 65001) no terminal pra liberar os caracteres (windows apenas)
 
     // CONSTANTES
     public static int JOGADORES ; //não é final porque muda de acordo com o que o player escolhe
+    public static final int GRUPOS = 7;
     public static final int CASAS_TABULEIRO = 40;
 
     // casas especiais
@@ -29,6 +31,16 @@ public class BancoImobiliarioBETA { //digite (chcp 65001) no terminal pra libera
     public static int sortearSorteOuReves() {
         return geradorAleatorio.nextInt(20);
     } // método para sortear um número de 0 a 19, cujo é utilizado no método sorteOuReves()
+
+    //variaveis globais de propriedades
+    static int[] propriedadesCompradasPorGrupo = propriedadesCompradasPorGrupo();
+    static int[] grupo1 = criarProprietariosDoGrupo(3);
+    static int[] grupo2 = criarProprietariosDoGrupo(6);
+    static int[] grupo3 = criarProprietariosDoGrupo(3);
+    static int[] grupo4 = criarProprietariosDoGrupo(2);
+    static int[] grupo5 = criarProprietariosDoGrupo(2);
+    static int[] grupo6 = criarProprietariosDoGrupo(3);
+    static int[] grupo7 = criarProprietariosDoGrupo(3);
 
     public static void sorteOuReves(int jogadorDaVez, int[] turnosRestantesNaCadeia, int[] dinheiroDosJogadores, int[] posicaoDosJogadores){
 
@@ -382,6 +394,68 @@ public class BancoImobiliarioBETA { //digite (chcp 65001) no terminal pra libera
         return entrada;
     }
 
+    public static int[][] criarGruposPropriedadesJogador(){
+        int[][] gruposPropriedadeJogador = new int[JOGADORES][GRUPOS];
+        
+        for (int i = 0; i < gruposPropriedadeJogador.length; i++) {
+            
+            for (int j = 0; j < gruposPropriedadeJogador[0].length; j++) {
+                gruposPropriedadeJogador[i][j] = -1; //sem proprietario
+            }
+        }
+
+        return gruposPropriedadeJogador;
+
+    }
+
+    public static int[] criarProprietariosDoGrupo(int nPropriedadesDoGrupo){
+        int[] grupo = new int[nPropriedadesDoGrupo];
+
+        for (int i = 0; i < grupo.length; i++) {
+            grupo[i] = -1; //sem proprietario
+        }
+
+        return grupo;
+    }
+    
+    public static int[] propriedadesCompradasPorGrupo(){
+        int[] propriedadesCompradasGrupo = new int[GRUPOS];
+
+        for (int i = 0; i < propriedadesCompradasGrupo.length; i++) {
+            propriedadesCompradasGrupo[i] = 0; //quantas já foram compradas daquele grupo (inicia com 0)
+        }
+
+        return propriedadesCompradasGrupo;
+    }
+
+    public static void verificarJogadorDonoGrupo(int[] proprietariosGrupo, int numeroGrupo, int jogadorDaVez, int[][] gruposJogadorEhDono){ //verifica se o jogador se tornou dono do grupo (possui todas as propriedades dele)
+        //guarda o proprietário da  última propriedade, se ele for diferente do proprietário da propriedade atual, ninguém é o dono do grupo (quebra o loop) 
+        int ultimoProprietario = 0; //inicializado com um valor qualquer só pro VS CODE aceitar ele no if
+
+        for (int i = 0; i < proprietariosGrupo.length; i++) {
+            if(proprietariosGrupo[i] == -1){
+                break;
+            }else{
+                if(i > 0){
+                    if(proprietariosGrupo[i] != ultimoProprietario){
+                        break;
+                    }else if(i == proprietariosGrupo.length - 1){ //ultimo loop e não quebrou nenhuma vez
+                        System.out.printf("PARABÉNS !!! O JOGADOR %d virou dono do GRUPO %d !!!\n", jogadorDaVez, numeroGrupo);
+                        gruposJogadorEhDono[jogadorDaVez][6] = jogadorDaVez;
+                        Arrays.sort(gruposJogadorEhDono[jogadorDaVez]); 
+
+                        for (int j = 0; j < gruposJogadorEhDono[0].length; j++) {
+                            System.out.println(gruposJogadorEhDono[jogadorDaVez][j]);
+                        } //TESTE
+                    }
+                }
+
+                ultimoProprietario = proprietariosGrupo[i];
+
+            }
+        }
+    }
+
     public static int decidirJogadorQueComeca(int quantidadeDeJogadoresNoDesempate, boolean[] jogadorEstaNoDesempate, int[] somaDadoJogadores,
             int maiorSomaDosDados) {
         while (quantidadeDeJogadoresNoDesempate > 1) {
@@ -424,7 +498,8 @@ public class BancoImobiliarioBETA { //digite (chcp 65001) no terminal pra libera
         return 0;
     }
 
-    public static void pisarCasa(int[] posicaoDosJogadores, int[] dinheiroDosJogadores, int[] turnosRestantesNaCadeia, int[] somaDadoJogadores, int jogadorDaVez, TipoCasa[] casasDoTabuleiro, Propriedade[] propriedades, Companhia[] companhias){
+    public static void pisarCasa(int[] posicaoDosJogadores, int[] dinheiroDosJogadores, int[] turnosRestantesNaCadeia, int[] somaDadoJogadores, int jogadorDaVez, TipoCasa[] casasDoTabuleiro, Propriedade[] propriedades,
+        Companhia[] companhias, int[][] gruposJogadorEhDono){
         TipoCasa casaPisadaPeloJogador = casasDoTabuleiro[posicaoDosJogadores[jogadorDaVez]];
         switch(casaPisadaPeloJogador.getTipoDaCasa()){
             case 1: //propriedade
@@ -436,9 +511,47 @@ public class BancoImobiliarioBETA { //digite (chcp 65001) no terminal pra libera
                     entrada = verificarEntradaValida(new int[] {1,2}, entrada);
 
                     if(entrada == 1){
-                        System.out.printf("O(a) %s agora é seu(sua) !!!\n", propriedadeDaCasa.getNome());
-                        dinheiroDosJogadores[jogadorDaVez] -= propriedadeDaCasa.getPreco();
-                        propriedadeDaCasa.setProprietario(jogadorDaVez);
+                        if(dinheiroDosJogadores[jogadorDaVez] >= propriedadeDaCasa.getPreco()){
+                            System.out.printf("O(a) %s agora é seu(sua) !!!\n", propriedadeDaCasa.getNome());
+                            dinheiroDosJogadores[jogadorDaVez] -= propriedadeDaCasa.getPreco();
+                            propriedadeDaCasa.setProprietario(jogadorDaVez);
+
+                            switch(propriedadeDaCasa.getGrupo()){
+                                case 1:
+                                    grupo1[propriedadesCompradasPorGrupo[0]] = jogadorDaVez;
+                                    verificarJogadorDonoGrupo(grupo1, 1, jogadorDaVez, gruposJogadorEhDono);
+                                    break;
+                                case 2:
+                                    grupo2[propriedadesCompradasPorGrupo[1]] = jogadorDaVez;
+                                    verificarJogadorDonoGrupo(grupo2, 2, jogadorDaVez, gruposJogadorEhDono);
+                                    break;
+                                case 3:
+                                    grupo3[propriedadesCompradasPorGrupo[2]] = jogadorDaVez;
+                                    verificarJogadorDonoGrupo(grupo3, 3, jogadorDaVez, gruposJogadorEhDono);
+                                    break;
+                                case 4:
+                                    grupo4[propriedadesCompradasPorGrupo[3]] = jogadorDaVez;
+                                    verificarJogadorDonoGrupo(grupo4, 4, jogadorDaVez, gruposJogadorEhDono);
+                                    break;
+                                case 5:
+                                    grupo5[propriedadesCompradasPorGrupo[4]] = jogadorDaVez;
+                                    verificarJogadorDonoGrupo(grupo5, 5, jogadorDaVez, gruposJogadorEhDono);
+                                    break;
+                                case 6:
+                                    grupo6[propriedadesCompradasPorGrupo[5]] = jogadorDaVez;
+                                    verificarJogadorDonoGrupo(grupo6, 6, jogadorDaVez, gruposJogadorEhDono);
+                                    break;
+                                case 7:
+                                    grupo7[propriedadesCompradasPorGrupo[6]] = jogadorDaVez;
+                                    verificarJogadorDonoGrupo(grupo7, 7, jogadorDaVez, gruposJogadorEhDono);
+                                    break;                                
+                            }
+
+                        }else{
+                            System.out.println("POBRE"); //futuramente ele vai poder vender o que tem para tentar comprar
+                        }
+                        
+
                     }
                     
                 }else if(propriedadeDaCasa.getProprietario() != jogadorDaVez){
@@ -462,6 +575,16 @@ public class BancoImobiliarioBETA { //digite (chcp 65001) no terminal pra libera
                     entrada = verificarEntradaValida(new int[] {1,2}, entrada);
 
                     if(entrada == 1){
+                        if(dinheiroDosJogadores[jogadorDaVez] >= companhiaDaCasa.getPreco()){
+                            System.out.printf("O(a) %s agora é seu(sua)\n", companhiaDaCasa.getNome());
+                            dinheiroDosJogadores[jogadorDaVez] -= companhiaDaCasa.getPreco();
+                            companhiaDaCasa.setProprietario(jogadorDaVez);   
+                            
+    
+                        }else{
+                            System.out.println("POBRE"); //futuramente ele vai poder vender o que tem para tentar comprar
+                        }
+                        
                         System.out.printf("O(a) %s agora é seu(sua)\n", companhiaDaCasa.getNome());
                         dinheiroDosJogadores[jogadorDaVez] -= companhiaDaCasa.getPreco();
                         companhiaDaCasa.setProprietario(jogadorDaVez);
@@ -520,6 +643,9 @@ public class BancoImobiliarioBETA { //digite (chcp 65001) no terminal pra libera
         entrada = ler.nextInt();
         entrada = verificarEntradaValida(new int[] {2, 3, 4}, entrada);
         JOGADORES = entrada;
+
+        int[][] gruposJogadorEhDono = criarGruposPropriedadesJogador();
+
 
         int jogadorDaVez = 0;
         int[] somaDadoJogadores = new int[JOGADORES];
@@ -641,7 +767,7 @@ public class BancoImobiliarioBETA { //digite (chcp 65001) no terminal pra libera
                     System.out.println("\n");
                 }
 
-                pisarCasa(posicaoDosJogadores, dinheiroDosJogadores, turnosRestantesNaCadeia, somaDadoJogadores, jogadorDaVez, casasDoTabuleiro, propriedades, companhias);
+                pisarCasa(posicaoDosJogadores, dinheiroDosJogadores, turnosRestantesNaCadeia, somaDadoJogadores, jogadorDaVez, casasDoTabuleiro, propriedades, companhias, gruposJogadorEhDono);
                 //o que acontece quando o jogador pisar na casa, antes de mudar o jogador da vez
 
             }
