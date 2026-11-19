@@ -440,9 +440,15 @@ public class BancoImobiliarioBETA { //digite (chcp 65001) no terminal pra libera
                     if(proprietariosGrupo[i] != ultimoProprietario){
                         break;
                     }else if(i == proprietariosGrupo.length - 1){ //ultimo loop e não quebrou nenhuma vez
-                        System.out.printf("PARABÉNS !!! O JOGADOR %d virou dono do GRUPO %d !!!\n", jogadorDaVez, numeroGrupo);
-                        gruposJogadorEhDono[jogadorDaVez][6] = jogadorDaVez;
-                        Arrays.sort(gruposJogadorEhDono[jogadorDaVez]); 
+                        System.out.printf("PARABÉNS !!! O JOGADOR %d virou dono do GRUPO %d !!!\n", jogadorDaVez + 1, numeroGrupo);
+                        
+                        for (int j = 0; j < gruposJogadorEhDono[jogadorDaVez].length; j++) {
+                            if(gruposJogadorEhDono[jogadorDaVez][j] == -1){
+                                gruposJogadorEhDono[jogadorDaVez][j] = numeroGrupo; //coloca o grupo na primeira posição livre
+                                break;
+                            }
+                        }
+
 
                         for (int j = 0; j < gruposJogadorEhDono[0].length; j++) {
                             System.out.println(gruposJogadorEhDono[jogadorDaVez][j]);
@@ -518,32 +524,39 @@ public class BancoImobiliarioBETA { //digite (chcp 65001) no terminal pra libera
 
                             switch(propriedadeDaCasa.getGrupo()){
                                 case 1:
-                                    grupo1[propriedadesCompradasPorGrupo[0]] = jogadorDaVez;
+                                    grupo1[propriedadesCompradasPorGrupo[0]] = jogadorDaVez; //coloca na posição do vetor do grupo de acordo com quantas propriedades tem comprada (0, 1, 2) etc.
                                     verificarJogadorDonoGrupo(grupo1, 1, jogadorDaVez, gruposJogadorEhDono);
+                                    propriedadesCompradasPorGrupo[0]++; //soma mais uma propriedade (mais uma daquele grupo foi comprada)
                                     break;
                                 case 2:
-                                    grupo2[propriedadesCompradasPorGrupo[1]] = jogadorDaVez;
+                                    grupo2[propriedadesCompradasPorGrupo[1]] = jogadorDaVez; //coloca na posição do vetor do grupo de acordo com quantas propriedades tem comprada (0, 1, 2) etc.
                                     verificarJogadorDonoGrupo(grupo2, 2, jogadorDaVez, gruposJogadorEhDono);
+                                    propriedadesCompradasPorGrupo[1]++; //soma mais uma propriedade (mais uma daquele grupo foi comprada)
                                     break;
                                 case 3:
-                                    grupo3[propriedadesCompradasPorGrupo[2]] = jogadorDaVez;
+                                    grupo3[propriedadesCompradasPorGrupo[2]] = jogadorDaVez; //coloca na posição do vetor do grupo de acordo com quantas propriedades tem comprada (0, 1, 2) etc.
                                     verificarJogadorDonoGrupo(grupo3, 3, jogadorDaVez, gruposJogadorEhDono);
+                                    propriedadesCompradasPorGrupo[2]++; //soma mais uma propriedade (mais uma daquele grupo foi comprada)
                                     break;
                                 case 4:
-                                    grupo4[propriedadesCompradasPorGrupo[3]] = jogadorDaVez;
+                                    grupo4[propriedadesCompradasPorGrupo[3]] = jogadorDaVez; //coloca na posição do vetor do grupo de acordo com quantas propriedades tem comprada (0, 1, 2) etc.
                                     verificarJogadorDonoGrupo(grupo4, 4, jogadorDaVez, gruposJogadorEhDono);
+                                    propriedadesCompradasPorGrupo[3]++; //soma mais uma propriedade (mais uma daquele grupo foi comprada)
                                     break;
-                                case 5:
-                                    grupo5[propriedadesCompradasPorGrupo[4]] = jogadorDaVez;
+                                case 5: 
+                                    grupo5[propriedadesCompradasPorGrupo[4]] = jogadorDaVez; //coloca na posição do vetor do grupo de acordo com quantas propriedades tem comprada (0, 1, 2) etc.
                                     verificarJogadorDonoGrupo(grupo5, 5, jogadorDaVez, gruposJogadorEhDono);
+                                    propriedadesCompradasPorGrupo[4]++; //soma mais uma propriedade (mais uma daquele grupo foi comprada)
                                     break;
                                 case 6:
-                                    grupo6[propriedadesCompradasPorGrupo[5]] = jogadorDaVez;
+                                    grupo6[propriedadesCompradasPorGrupo[5]] = jogadorDaVez; //coloca na posição do vetor do grupo de acordo com quantas propriedades tem comprada (0, 1, 2) etc.
                                     verificarJogadorDonoGrupo(grupo6, 6, jogadorDaVez, gruposJogadorEhDono);
+                                    propriedadesCompradasPorGrupo[5]++; //soma mais uma propriedade (mais uma daquele grupo foi comprada)
                                     break;
                                 case 7:
-                                    grupo7[propriedadesCompradasPorGrupo[6]] = jogadorDaVez;
+                                    grupo7[propriedadesCompradasPorGrupo[6]] = jogadorDaVez; //coloca na posição do vetor do grupo de acordo com quantas propriedades tem comprada (0, 1, 2) etc.
                                     verificarJogadorDonoGrupo(grupo7, 7, jogadorDaVez, gruposJogadorEhDono);
+                                    propriedadesCompradasPorGrupo[6]++; //soma mais uma propriedade (mais uma daquele grupo foi comprada)
                                     break;                                
                             }
 
@@ -579,15 +592,10 @@ public class BancoImobiliarioBETA { //digite (chcp 65001) no terminal pra libera
                             System.out.printf("O(a) %s agora é seu(sua)\n", companhiaDaCasa.getNome());
                             dinheiroDosJogadores[jogadorDaVez] -= companhiaDaCasa.getPreco();
                             companhiaDaCasa.setProprietario(jogadorDaVez);   
-                            
-    
                         }else{
                             System.out.println("POBRE"); //futuramente ele vai poder vender o que tem para tentar comprar
                         }
                         
-                        System.out.printf("O(a) %s agora é seu(sua)\n", companhiaDaCasa.getNome());
-                        dinheiroDosJogadores[jogadorDaVez] -= companhiaDaCasa.getPreco();
-                        companhiaDaCasa.setProprietario(jogadorDaVez);
                     }
 
                 }else if(companhiaDaCasa.getProprietario() != jogadorDaVez){
