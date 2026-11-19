@@ -1,11 +1,10 @@
 import java.util.Random;
 import java.util.Scanner;
-import java.util.Arrays;
 
-public class BancoImobiliarioBETA { //digite (chcp 65001) no terminal pra liberar os caracteres (windows apenas)
+public class BancoImobiliarioBETA { // digite (chcp 65001) no terminal pra liberar os caracteres (windows apenas)
 
     // CONSTANTES
-    public static int JOGADORES ; //não é final porque muda de acordo com o que o player escolhe
+    public static int JOGADORES; // não é final porque muda de acordo com o que o player escolhe
     public static final int GRUPOS = 7;
     public static final int CASAS_TABULEIRO = 40;
 
@@ -21,6 +20,7 @@ public class BancoImobiliarioBETA { //digite (chcp 65001) no terminal pra libera
 
     // o que o jogador digita no teclado (opção de menu ou número de um jogador)
     static int entrada;
+    static int contador = 0; //pra qualquer coisa que conte
 
     final static Scanner ler = new Scanner(System.in);
 
@@ -30,9 +30,10 @@ public class BancoImobiliarioBETA { //digite (chcp 65001) no terminal pra libera
 
     public static int sortearSorteOuReves() {
         return geradorAleatorio.nextInt(20);
-    } // método para sortear um número de 0 a 19, cujo é utilizado no método sorteOuReves()
+    } // método para sortear um número de 0 a 19, cujo é utilizado no método
+      // sorteOuReves()
 
-    //variaveis globais de propriedades
+    // variaveis globais de propriedades
     static int[] propriedadesCompradasPorGrupo = propriedadesCompradasPorGrupo();
     static int[] grupo1 = criarProprietariosDoGrupo(3);
     static int[] grupo2 = criarProprietariosDoGrupo(6);
@@ -42,18 +43,16 @@ public class BancoImobiliarioBETA { //digite (chcp 65001) no terminal pra libera
     static int[] grupo6 = criarProprietariosDoGrupo(3);
     static int[] grupo7 = criarProprietariosDoGrupo(3);
 
-    public static void sorteOuReves(int jogadorDaVez, int[] turnosRestantesNaCadeia, int[] dinheiroDosJogadores, int[] posicaoDosJogadores){
+    public static void sorteOuReves(int jogadorDaVez, int[] turnosRestantesNaCadeia, int[] dinheiroDosJogadores,
+            int[] posicaoDosJogadores) {
 
-
-        //Casos 0 ao 7: O jogador ganha dinheiro
-        //Casos 8 ao 15: O jogador perde dinheiro
+        // Casos 0 ao 7: O jogador ganha dinheiro
+        // Casos 8 ao 15: O jogador perde dinheiro
         // Casos 16 e 17: Um jogador ganha, outro jogador perde
         // Caso 18: O jogador vai para cadeia
         // Caso 19: O jogador manda outro para cadeia
 
-
         int cartaSorteada = sortearSorteOuReves();
-
 
         switch (cartaSorteada) {
 
@@ -93,7 +92,8 @@ public class BancoImobiliarioBETA { //digite (chcp 65001) no terminal pra libera
                 break;
 
             case 5:
-                System.out.println("Você arrematou um carro exótico no leilão, supostamente usado pelo Ayrton Senna. Você reforma o carro e vende por um preço absurdo!");
+                System.out.println(
+                        "Você arrematou um carro exótico no leilão, supostamente usado pelo Ayrton Senna. Você reforma o carro e vende por um preço absurdo!");
                 System.out.println("Você ganhou R$70.000!");
                 dinheiroDosJogadores[jogadorDaVez] += 70000;
 
@@ -121,7 +121,8 @@ public class BancoImobiliarioBETA { //digite (chcp 65001) no terminal pra libera
                 break;
 
             case 9:
-                System.out.println("Em um dia chuvoso, seu carro de luxo acaba derrapando a traseira e bate na barreira da rodovia.");
+                System.out.println(
+                        "Em um dia chuvoso, seu carro de luxo acaba derrapando a traseira e bate na barreira da rodovia.");
                 System.out.println("Você perdeu R$120.000.");
                 dinheiroDosJogadores[jogadorDaVez] -= 120000;
 
@@ -135,7 +136,8 @@ public class BancoImobiliarioBETA { //digite (chcp 65001) no terminal pra libera
                 break;
 
             case 11:
-                System.out.println("Você perde o campeonato de farmar aura. Para ninguém saber a vergonha que passou, você paga quem fez seus vídeos para eles não postar.");
+                System.out.println(
+                        "Você perde o campeonato de farmar aura. Para ninguém saber a vergonha que passou, você paga quem fez seus vídeos para eles não postar.");
                 System.out.println("Você perdeu R$67.667.");
                 dinheiroDosJogadores[jogadorDaVez] -= 67667;
 
@@ -149,14 +151,16 @@ public class BancoImobiliarioBETA { //digite (chcp 65001) no terminal pra libera
                 break;
 
             case 13:
-                System.out.println("No trajeto de volta para sua casa, você é encurralado por dois caras em uma moto e acaba sendo asaltado.");
+                System.out.println(
+                        "No trajeto de volta para sua casa, você é encurralado por dois caras em uma moto e acaba sendo asaltado.");
                 System.out.println("Você perdeu R$50.000.");
                 dinheiroDosJogadores[jogadorDaVez] -= 50000;
 
                 break;
 
             case 14:
-                System.out.println("No meio do campeonato, você acaba quebrando seu braço e teve que pagar uma cirurgia.");
+                System.out.println(
+                        "No meio do campeonato, você acaba quebrando seu braço e teve que pagar uma cirurgia.");
                 System.out.println("Você perdeu R$20.000.");
                 dinheiroDosJogadores[jogadorDaVez] -= 20000;
 
@@ -174,21 +178,19 @@ public class BancoImobiliarioBETA { //digite (chcp 65001) no terminal pra libera
                 System.out.println("Você planeja um assalto à propriedade de um rival!");
                 System.out.println("Quem você quer assaltar?");
                 entrada = ler.nextInt();
-                entrada = verificarEntradaValida(new int[] {1, 2, 3, 4}, entrada);
+                entrada = verificarEntradaValida(new int[] { 1, 2, 3, 4 }, entrada);
 
                 // o jogador digita o número (1 a 4), mas o vetor começa no 0, por isso o "- 1"
                 while (entrada - 1 == jogadorDaVez || entrada > JOGADORES) {
-                    if(entrada - 1 == jogadorDaVez){ //duas mensagens diferentes de acordo com o caso
+                    if (entrada - 1 == jogadorDaVez) { // duas mensagens diferentes de acordo com o caso
                         System.out.println("Entrada inválida !!! Você não pode assaltar você mesmo !!!");
-                    }else{
+                    } else {
                         System.out.println("Entrada inválida !!! Jogador não existe !!!");
                     }
 
-
                     entrada = ler.nextInt();
-                    entrada = verificarEntradaValida(new int[] {1, 2, 3, 4}, entrada);
+                    entrada = verificarEntradaValida(new int[] { 1, 2, 3, 4 }, entrada);
                 }
-
 
                 System.out.printf("Você invadiu a propriedade do Jogador %d e roubou R$60.000!\n", entrada);
                 dinheiroDosJogadores[entrada - 1] -= 60000;
@@ -200,21 +202,18 @@ public class BancoImobiliarioBETA { //digite (chcp 65001) no terminal pra libera
                 System.out.println("Você hackeou o Pix de alguém e fez uma transferência misteriosa!");
                 System.out.println("Quem você quer hackear?");
                 entrada = ler.nextInt();
-                entrada = verificarEntradaValida(new int[] {1, 2, 3, 4}, entrada);
-
+                entrada = verificarEntradaValida(new int[] { 1, 2, 3, 4 }, entrada);
 
                 while (entrada - 1 == jogadorDaVez || entrada > JOGADORES) {
-                    if(entrada - 1 == jogadorDaVez){ //duas mensagens diferentes de acordo com o caso
+                    if (entrada - 1 == jogadorDaVez) { // duas mensagens diferentes de acordo com o caso
                         System.out.println("Entrada inválida !!! Você não pode hackear você mesmo !!!");
-                    }else{
+                    } else {
                         System.out.println("Entrada inválida !!! Jogador não existe !!!");
                     }
 
-
                     entrada = ler.nextInt();
-                    entrada = verificarEntradaValida(new int[] {1, 2, 3, 4}, entrada);
+                    entrada = verificarEntradaValida(new int[] { 1, 2, 3, 4 }, entrada);
                 }
-    
 
                 System.out.printf("Você tirou R$45.000 da conta do Jogador %d!\n", entrada);
                 dinheiroDosJogadores[entrada - 1] -= 45000;
@@ -235,21 +234,18 @@ public class BancoImobiliarioBETA { //digite (chcp 65001) no terminal pra libera
                 System.out.println("Quem você quer mandar para a cadeia?");
 
                 entrada = ler.nextInt();
-                entrada = verificarEntradaValida(new int[] {1, 2, 3, 4}, entrada);
-
+                entrada = verificarEntradaValida(new int[] { 1, 2, 3, 4 }, entrada);
 
                 while (entrada - 1 == jogadorDaVez || entrada > JOGADORES) {
-                    if(entrada - 1 == jogadorDaVez){
+                    if (entrada - 1 == jogadorDaVez) {
                         System.out.println("Entrada inválida !!! Você não pode mandar você mesmo pra cadeia !!!");
-                    }else{
+                    } else {
                         System.out.println("Entrada inválida !!! Jogador não existe !!!");
                     }
 
-
                     entrada = ler.nextInt();
-                    entrada = verificarEntradaValida(new int[] {1, 2, 3, 4}, entrada);
+                    entrada = verificarEntradaValida(new int[] { 1, 2, 3, 4 }, entrada);
                 }
-
 
                 System.out.printf("O Jogador %d foi preso, ficará 3 turnos sem jogar !!!\n", entrada);
                 posicaoDosJogadores[entrada - 1] = POSICAO_CADEIA;
@@ -259,29 +255,31 @@ public class BancoImobiliarioBETA { //digite (chcp 65001) no terminal pra libera
 
         }
 
-
-
     }
 
-
     public static String formatarCasa(int numeroDaCasa, int[] posicaoDosJogadores, TipoCasa[] casasDoTabuleiro,
-        Propriedade[] propriedades) {
+            Propriedade[] propriedades) {
 
         // cor de cada jogador: vermelho, azul, verde e amarelo
         final String[] CORES_DOS_JOGADORES = { "\u001B[31m", "\u001B[34m", "\u001B[32m", "\u001B[33m" };
         final String CODIGO_RESETAR_COR = "\u001B[0m";
 
-        // fundo de cada grupo (vermelho, verde, laranja, azul claro, rosa, roxo, azul escuro, amarelo)
-        final String[] FUNDO_NORMAL_POR_GRUPO = { "\u001B[101m", "\u001B[30;48;5;40m", "\u001B[30;48;5;208m", "\u001B[30;48;5;117m",
+        // fundo de cada grupo (vermelho, verde, laranja, azul claro, rosa, roxo, azul
+        // escuro, amarelo)
+        final String[] FUNDO_NORMAL_POR_GRUPO = { "\u001B[101m", "\u001B[30;48;5;40m", "\u001B[30;48;5;208m",
+                "\u001B[30;48;5;117m",
                 "\u001B[30;48;5;205m", "\u001B[30;48;5;141m", "\u001B[30;48;5;33m", "\u001B[30;48;5;226m" };
 
-        // mesmos grupos, só que mais escuros (usados quando tem qualquer jogador na casa)
-        final String[] FUNDO_ESCURO_POR_GRUPO = { "\u001B[48;5;52m", "\u001B[97;48;5;22m", "\u001B[97;48;5;94m", "\u001B[97;48;5;17m",
+        // mesmos grupos, só que mais escuros (usados quando tem qualquer jogador na
+        // casa)
+        final String[] FUNDO_ESCURO_POR_GRUPO = { "\u001B[48;5;52m", "\u001B[97;48;5;22m", "\u001B[97;48;5;94m",
+                "\u001B[97;48;5;17m",
                 "\u001B[97;48;5;125m", "\u001B[97;48;5;54m", "\u001B[97;48;5;17m", "\u001B[97;48;5;94m" };
 
         // sigla das casas especiais (tipo 4), na ordem da posição da carta da casa
-        // 0 cadeia, 1 imposto de renda, 2 férias, 3 lucros e dividendos, 4 vá pra cadeia
-        final String[] SIGLAS_CASAS_ESPECIAIS = {"CA", "IR", "FE", "LD", "VC" };
+        // 0 cadeia, 1 imposto de renda, 2 férias, 3 lucros e dividendos, 4 vá pra
+        // cadeia
+        final String[] SIGLAS_CASAS_ESPECIAIS = { "CA", "IR", "FE", "LD", "VC" };
 
         TipoCasa casaAtual = casasDoTabuleiro[numeroDaCasa];
         String fundoDaCasa = CODIGO_RESETAR_COR; // casa sem cor fica igual
@@ -303,18 +301,16 @@ public class BancoImobiliarioBETA { //digite (chcp 65001) no terminal pra libera
 
             }
 
-        }
-        else if (casaAtual.getTipoDaCasa() == 2) {
+        } else if (casaAtual.getTipoDaCasa() == 2) {
 
             siglaDaCasa = "CO";
             fundoDaCasa = "\u001B[30;48;5;245m"; // companhia fica cinza
 
-        }
-        else if (casaAtual.getTipoDaCasa() == 3) {
+        } else if (casaAtual.getTipoDaCasa() == 3) {
 
             siglaDaCasa = "SR";
             fundoDaCasa = FUNDO_NORMAL_POR_GRUPO[0];
-            
+
             for (int indiceDoJogador = 0; indiceDoJogador < JOGADORES; indiceDoJogador++) {
 
                 if (posicaoDosJogadores[indiceDoJogador] == numeroDaCasa) {
@@ -323,8 +319,7 @@ public class BancoImobiliarioBETA { //digite (chcp 65001) no terminal pra libera
 
             }
 
-        }
-        else if (casaAtual.getTipoDaCasa() == 4) {
+        } else if (casaAtual.getTipoDaCasa() == 4) {
 
             siglaDaCasa = SIGLAS_CASAS_ESPECIAIS[casaAtual.getPosicaoCartaCasa()];
 
@@ -337,7 +332,11 @@ public class BancoImobiliarioBETA { //digite (chcp 65001) no terminal pra libera
 
             if (posicaoDosJogadores[indiceDoJogador] == numeroDaCasa) {
 
-                blocosDosJogadores.append(CORES_DOS_JOGADORES[indiceDoJogador]).append("█").append(fundoDaCasa); // volta pro fundo da casa
+                blocosDosJogadores.append(CORES_DOS_JOGADORES[indiceDoJogador]).append("█").append(fundoDaCasa); // volta
+                                                                                                                 // pro
+                                                                                                                 // fundo
+                                                                                                                 // da
+                                                                                                                 // casa
                 quantidadeDeJogadoresNaCasa++;
 
             }
@@ -348,25 +347,25 @@ public class BancoImobiliarioBETA { //digite (chcp 65001) no terminal pra libera
 
         if (quantidadeDeJogadoresNaCasa > 0) {
 
-            
             String espacoInicial = (quantidadeDeJogadoresNaCasa < 4) ? " " : "";
-            conteudoDaCasa = espacoInicial + blocosDosJogadores + " ".repeat(Math.max(0, 3 - quantidadeDeJogadoresNaCasa));
-             // sempre 4 caracteres visíveis
-        }
-        else {
+            conteudoDaCasa = espacoInicial + blocosDosJogadores
+                    + " ".repeat(Math.max(0, 3 - quantidadeDeJogadoresNaCasa));
+            // sempre 4 caracteres visíveis
+        } else {
 
             conteudoDaCasa = String.format(" %-3s", siglaDaCasa);
-             // sempre 4 caracteres visíveis
+            // sempre 4 caracteres visíveis
         }
 
         return fundoDaCasa + "[" + conteudoDaCasa + "]" + CODIGO_RESETAR_COR + " "; // 7 caracteres visíveis no total
-    }//fim do formatar casa
+    }// fim do formatar casa
 
     public static int colocarNoDesempate(int maiorSomaDosDados, int[] somaDadoJogadores,
             boolean[] jogadorEstaNoDesempate) {
         int quantidadeDeJogadoresNoDesempate = 0;
 
-        for (int indiceDoJogador = 0; indiceDoJogador < JOGADORES; indiceDoJogador++) { // só coloca o jogador no desempate
+        for (int indiceDoJogador = 0; indiceDoJogador < JOGADORES; indiceDoJogador++) { // só coloca o jogador no
+                                                                                        // desempate
             if (somaDadoJogadores[indiceDoJogador] == maiorSomaDosDados) {
                 quantidadeDeJogadoresNoDesempate++;
                 jogadorEstaNoDesempate[indiceDoJogador] = true;
@@ -377,14 +376,14 @@ public class BancoImobiliarioBETA { //digite (chcp 65001) no terminal pra libera
         return quantidadeDeJogadoresNoDesempate;
     }
 
-    public static int verificarEntradaValida(int[] opcoesValidas, int entrada){
+    public static int verificarEntradaValida(int[] opcoesValidas, int entrada) {
         boolean opcaoInvalida = true;
-        while(opcaoInvalida){
-            for(int indiceDaOpcao = 0; indiceDaOpcao < opcoesValidas.length; indiceDaOpcao++){
-                if(entrada == opcoesValidas[indiceDaOpcao]){
+        while (opcaoInvalida) {
+            for (int indiceDaOpcao = 0; indiceDaOpcao < opcoesValidas.length; indiceDaOpcao++) {
+                if (entrada == opcoesValidas[indiceDaOpcao]) {
                     opcaoInvalida = false;
                     break;
-                }else if(indiceDaOpcao == opcoesValidas.length - 1){
+                } else if (indiceDaOpcao == opcoesValidas.length - 1) {
                     System.out.println("Entrada inválida, tente novamente !!!");
                     entrada = ler.nextInt();
                 }
@@ -394,13 +393,13 @@ public class BancoImobiliarioBETA { //digite (chcp 65001) no terminal pra libera
         return entrada;
     }
 
-    public static int[][] criarGruposPropriedadesJogador(){
+    public static int[][] criarGruposPropriedadesJogador() {
         int[][] gruposPropriedadeJogador = new int[JOGADORES][GRUPOS];
-        
+
         for (int i = 0; i < gruposPropriedadeJogador.length; i++) {
-            
+
             for (int j = 0; j < gruposPropriedadeJogador[0].length; j++) {
-                gruposPropriedadeJogador[i][j] = -1; //sem proprietario
+                gruposPropriedadeJogador[i][j] = -1; // sem proprietario
             }
         }
 
@@ -408,51 +407,55 @@ public class BancoImobiliarioBETA { //digite (chcp 65001) no terminal pra libera
 
     }
 
-    public static int[] criarProprietariosDoGrupo(int nPropriedadesDoGrupo){
+    public static int[] criarProprietariosDoGrupo(int nPropriedadesDoGrupo) {
         int[] grupo = new int[nPropriedadesDoGrupo];
 
         for (int i = 0; i < grupo.length; i++) {
-            grupo[i] = -1; //sem proprietario
+            grupo[i] = -1; // sem proprietario
         }
 
         return grupo;
     }
-    
-    public static int[] propriedadesCompradasPorGrupo(){
+
+    public static int[] propriedadesCompradasPorGrupo() {
         int[] propriedadesCompradasGrupo = new int[GRUPOS];
 
         for (int i = 0; i < propriedadesCompradasGrupo.length; i++) {
-            propriedadesCompradasGrupo[i] = 0; //quantas já foram compradas daquele grupo (inicia com 0)
+            propriedadesCompradasGrupo[i] = 0; // quantas já foram compradas daquele grupo (inicia com 0)
         }
 
         return propriedadesCompradasGrupo;
     }
 
-    public static void verificarJogadorDonoGrupo(int[] proprietariosGrupo, int numeroGrupo, int jogadorDaVez, int[][] gruposJogadorEhDono){ //verifica se o jogador se tornou dono do grupo (possui todas as propriedades dele)
-        //guarda o proprietário da  última propriedade, se ele for diferente do proprietário da propriedade atual, ninguém é o dono do grupo (quebra o loop) 
-        int ultimoProprietario = 0; //inicializado com um valor qualquer só pro VS CODE aceitar ele no if
+    public static void verificarJogadorDonoGrupo(int[] proprietariosGrupo, int numeroGrupo, int jogadorDaVez,
+            int[][] gruposJogadorEhDono) { // verifica se o jogador se tornou dono do grupo (possui todas as
+                                           // propriedades dele)
+        // guarda o proprietário da última propriedade, se ele for diferente do
+        // proprietário da propriedade atual, ninguém é o dono do grupo (quebra o loop)
+        int ultimoProprietario = 0; // inicializado com um valor qualquer só pro VS CODE aceitar ele no if
 
         for (int i = 0; i < proprietariosGrupo.length; i++) {
-            if(proprietariosGrupo[i] == -1){
+            if (proprietariosGrupo[i] == -1) {
                 break;
-            }else{
-                if(i > 0){
-                    if(proprietariosGrupo[i] != ultimoProprietario){
+            } else {
+                if (i > 0) {
+                    if (proprietariosGrupo[i] != ultimoProprietario) {
                         break;
-                    }else if(i == proprietariosGrupo.length - 1){ //ultimo loop e não quebrou nenhuma vez
-                        System.out.printf("PARABÉNS !!! O JOGADOR %d virou dono do GRUPO %d !!!\n", jogadorDaVez + 1, numeroGrupo);
-                        
+                    } else if (i == proprietariosGrupo.length - 1) { // ultimo loop e não quebrou nenhuma vez
+                        System.out.printf("PARABÉNS !!! O JOGADOR %d virou dono do GRUPO %d !!!\n", jogadorDaVez + 1,
+                                numeroGrupo);
+
                         for (int j = 0; j < gruposJogadorEhDono[jogadorDaVez].length; j++) {
-                            if(gruposJogadorEhDono[jogadorDaVez][j] == -1){
-                                gruposJogadorEhDono[jogadorDaVez][j] = numeroGrupo; //coloca o grupo na primeira posição livre
+                            if (gruposJogadorEhDono[jogadorDaVez][j] == -1) {
+                                gruposJogadorEhDono[jogadorDaVez][j] = numeroGrupo; // coloca o grupo na primeira
+                                                                                    // posição livre
                                 break;
                             }
                         }
 
-
                         for (int j = 0; j < gruposJogadorEhDono[0].length; j++) {
                             System.out.println(gruposJogadorEhDono[jogadorDaVez][j]);
-                        } //TESTE
+                        } // TESTE
                     }
                 }
 
@@ -462,7 +465,8 @@ public class BancoImobiliarioBETA { //digite (chcp 65001) no terminal pra libera
         }
     }
 
-    public static int decidirJogadorQueComeca(int quantidadeDeJogadoresNoDesempate, boolean[] jogadorEstaNoDesempate, int[] somaDadoJogadores,
+    public static int decidirJogadorQueComeca(int quantidadeDeJogadoresNoDesempate, boolean[] jogadorEstaNoDesempate,
+            int[] somaDadoJogadores,
             int maiorSomaDosDados) {
         while (quantidadeDeJogadoresNoDesempate > 1) {
             System.out.println("\nDesempate:");
@@ -475,8 +479,8 @@ public class BancoImobiliarioBETA { //digite (chcp 65001) no terminal pra libera
                     valorDado2 = girarDado();
                     somaDadoJogadores[indiceDoJogador] = valorDado1 + valorDado2;
                     DadoAnimado.animarDados(valorDado1, valorDado2);
-                    System.out.printf("\n---------- RESULTADO FINAL: %d ---------\n", somaDadoJogadores[indiceDoJogador]);
-
+                    System.out.printf("\n---------- RESULTADO FINAL: %d ---------\n",
+                            somaDadoJogadores[indiceDoJogador]);
 
                     if (somaDadoJogadores[indiceDoJogador] > maiorSomaDosDados) {
                         maiorSomaDosDados = somaDadoJogadores[indiceDoJogador];
@@ -504,138 +508,155 @@ public class BancoImobiliarioBETA { //digite (chcp 65001) no terminal pra libera
         return 0;
     }
 
-    public static void pisarCasa(int[] posicaoDosJogadores, int[] dinheiroDosJogadores, int[] turnosRestantesNaCadeia, int[] somaDadoJogadores, int jogadorDaVez, TipoCasa[] casasDoTabuleiro, Propriedade[] propriedades,
-        Companhia[] companhias, int[][] gruposJogadorEhDono){
+
+    public static void pisarCasa(int[] posicaoDosJogadores, int[] dinheiroDosJogadores, int[] turnosRestantesNaCadeia,
+            int[] somaDadoJogadores, int jogadorDaVez, TipoCasa[] casasDoTabuleiro, Propriedade[] propriedades,
+            Companhia[] companhias, int[][] gruposJogadorEhDono) {
         TipoCasa casaPisadaPeloJogador = casasDoTabuleiro[posicaoDosJogadores[jogadorDaVez]];
-        switch(casaPisadaPeloJogador.getTipoDaCasa()){
-            case 1: //propriedade
+        switch (casaPisadaPeloJogador.getTipoDaCasa()) {
+            case 1: // propriedade
                 Propriedade propriedadeDaCasa = propriedades[casaPisadaPeloJogador.getPosicaoCartaCasa()];
-                if(propriedadeDaCasa.getProprietario() == -1){
-                    System.out.printf("Você quer comprar o(a) %s por R$%d.00\n", propriedadeDaCasa.getNome(), propriedadeDaCasa.getPreco());
+                if (propriedadeDaCasa.getProprietario() == -1) {
+                    System.out.printf("Você quer comprar o(a) %s por R$%d.00\n", propriedadeDaCasa.getNome(),
+                            propriedadeDaCasa.getPreco());
                     System.out.println("1 ---> Sim      2 ---> Não");
                     entrada = ler.nextInt();
-                    entrada = verificarEntradaValida(new int[] {1,2}, entrada);
+                    entrada = verificarEntradaValida(new int[] { 1, 2 }, entrada);
 
-                    if(entrada == 1){
-                        if(dinheiroDosJogadores[jogadorDaVez] >= propriedadeDaCasa.getPreco()){
-                            System.out.printf("O(a) %s agora é seu(sua) !!!\n", propriedadeDaCasa.getNome());
-                            dinheiroDosJogadores[jogadorDaVez] -= propriedadeDaCasa.getPreco();
-                            propriedadeDaCasa.setProprietario(jogadorDaVez);
+                    if (entrada == 1) {
+                        System.out.printf("O(a) %s agora é seu(sua) !!!\n", propriedadeDaCasa.getNome());
+                        dinheiroDosJogadores[jogadorDaVez] -= propriedadeDaCasa.getPreco();
+                        propriedadeDaCasa.setProprietario(jogadorDaVez);
 
-                            switch(propriedadeDaCasa.getGrupo()){
-                                case 1:
-                                    grupo1[propriedadesCompradasPorGrupo[0]] = jogadorDaVez; //coloca na posição do vetor do grupo de acordo com quantas propriedades tem comprada (0, 1, 2) etc.
-                                    verificarJogadorDonoGrupo(grupo1, 1, jogadorDaVez, gruposJogadorEhDono);
-                                    propriedadesCompradasPorGrupo[0]++; //soma mais uma propriedade (mais uma daquele grupo foi comprada)
-                                    break;
-                                case 2:
-                                    grupo2[propriedadesCompradasPorGrupo[1]] = jogadorDaVez; //coloca na posição do vetor do grupo de acordo com quantas propriedades tem comprada (0, 1, 2) etc.
-                                    verificarJogadorDonoGrupo(grupo2, 2, jogadorDaVez, gruposJogadorEhDono);
-                                    propriedadesCompradasPorGrupo[1]++; //soma mais uma propriedade (mais uma daquele grupo foi comprada)
-                                    break;
-                                case 3:
-                                    grupo3[propriedadesCompradasPorGrupo[2]] = jogadorDaVez; //coloca na posição do vetor do grupo de acordo com quantas propriedades tem comprada (0, 1, 2) etc.
-                                    verificarJogadorDonoGrupo(grupo3, 3, jogadorDaVez, gruposJogadorEhDono);
-                                    propriedadesCompradasPorGrupo[2]++; //soma mais uma propriedade (mais uma daquele grupo foi comprada)
-                                    break;
-                                case 4:
-                                    grupo4[propriedadesCompradasPorGrupo[3]] = jogadorDaVez; //coloca na posição do vetor do grupo de acordo com quantas propriedades tem comprada (0, 1, 2) etc.
-                                    verificarJogadorDonoGrupo(grupo4, 4, jogadorDaVez, gruposJogadorEhDono);
-                                    propriedadesCompradasPorGrupo[3]++; //soma mais uma propriedade (mais uma daquele grupo foi comprada)
-                                    break;
-                                case 5: 
-                                    grupo5[propriedadesCompradasPorGrupo[4]] = jogadorDaVez; //coloca na posição do vetor do grupo de acordo com quantas propriedades tem comprada (0, 1, 2) etc.
-                                    verificarJogadorDonoGrupo(grupo5, 5, jogadorDaVez, gruposJogadorEhDono);
-                                    propriedadesCompradasPorGrupo[4]++; //soma mais uma propriedade (mais uma daquele grupo foi comprada)
-                                    break;
-                                case 6:
-                                    grupo6[propriedadesCompradasPorGrupo[5]] = jogadorDaVez; //coloca na posição do vetor do grupo de acordo com quantas propriedades tem comprada (0, 1, 2) etc.
-                                    verificarJogadorDonoGrupo(grupo6, 6, jogadorDaVez, gruposJogadorEhDono);
-                                    propriedadesCompradasPorGrupo[5]++; //soma mais uma propriedade (mais uma daquele grupo foi comprada)
-                                    break;
-                                case 7:
-                                    grupo7[propriedadesCompradasPorGrupo[6]] = jogadorDaVez; //coloca na posição do vetor do grupo de acordo com quantas propriedades tem comprada (0, 1, 2) etc.
-                                    verificarJogadorDonoGrupo(grupo7, 7, jogadorDaVez, gruposJogadorEhDono);
-                                    propriedadesCompradasPorGrupo[6]++; //soma mais uma propriedade (mais uma daquele grupo foi comprada)
-                                    break;                                
+                        switch (propriedadeDaCasa.getGrupo()) {
+                            case 1:
+                                //coloca na posição do vetor do grupo de acordo com quantas propriedades dele tem compradas (0, 1, 2) etc.
+                                grupo1[propriedadesCompradasPorGrupo[0]] = jogadorDaVez;
+                                verificarJogadorDonoGrupo(grupo1, 1, jogadorDaVez, gruposJogadorEhDono); //verifica se ele virou dono do grupo
+                                propriedadesCompradasPorGrupo[0]++; // soma mais uma propriedade (mais uma daquele grupo foi comprada)
+                                break;
+                            case 2:
+                                //coloca na posição do vetor do grupo de acordo com quantas propriedades dele tem compradas (0, 1, 2) etc.
+                                grupo2[propriedadesCompradasPorGrupo[1]] = jogadorDaVez;
+                                verificarJogadorDonoGrupo(grupo2, 2, jogadorDaVez, gruposJogadorEhDono); //verifica se ele virou dono do grupo
+                                propriedadesCompradasPorGrupo[1]++; // soma mais uma propriedade (mais uma daquele grupo foi comprada)
+                                break;
+                            case 3:
+                                //coloca na posição do vetor do grupo de acordo com quantas propriedades dele tem compradas (0, 1, 2) etc.
+                                grupo3[propriedadesCompradasPorGrupo[2]] = jogadorDaVez;
+                                verificarJogadorDonoGrupo(grupo3, 3, jogadorDaVez, gruposJogadorEhDono); //verifica se ele virou dono do grupo
+                                propriedadesCompradasPorGrupo[2]++; // soma mais uma propriedade (mais uma daquele grupo foi comprada)
+                                break;
+                            case 4:
+                                //coloca na posição do vetor do grupo de acordo com quantas propriedades dele tem compradas (0, 1, 2) etc.
+                                grupo4[propriedadesCompradasPorGrupo[3]] = jogadorDaVez; 
+                                verificarJogadorDonoGrupo(grupo4, 4, jogadorDaVez, gruposJogadorEhDono); //verifica se ele virou dono do grupo
+                                propriedadesCompradasPorGrupo[3]++; // soma mais uma propriedade (mais uma daquele grupo foi comprada)
+                                break;
+                            case 5:
+                                //coloca na posição do vetor do grupo de acordo com quantas propriedades dele tem compradas (0, 1, 2) etc.
+                                grupo5[propriedadesCompradasPorGrupo[4]] = jogadorDaVez;
+                                verificarJogadorDonoGrupo(grupo5, 5, jogadorDaVez, gruposJogadorEhDono); //verifica se ele virou dono do grupo
+                                propriedadesCompradasPorGrupo[4]++; //soma mais uma propriedade (mais uma daquele grupo foi comprada)
+                                break;
+                            case 6:
+                                //coloca na posição do vetor do grupo de acordo com quantas propriedades dele tem compradas (0, 1, 2) etc.
+                                grupo6[propriedadesCompradasPorGrupo[5]] = jogadorDaVez; 
+                                verificarJogadorDonoGrupo(grupo6, 6, jogadorDaVez, gruposJogadorEhDono); //verifica se ele virou dono do grupo
+                                propriedadesCompradasPorGrupo[5]++; //soma mais uma propriedade (mais uma daquele grupo foi comprada)
+                                break;
+                            case 7:
+                                //coloca na posição do vetor do grupo de acordo com quantas propriedades dele tem compradas (0, 1, 2) etc.
+                                grupo7[propriedadesCompradasPorGrupo[6]] = jogadorDaVez;
+                                verificarJogadorDonoGrupo(grupo7, 7, jogadorDaVez, gruposJogadorEhDono); //verifica se ele virou dono do grupo
+                                propriedadesCompradasPorGrupo[6]++; //soma mais uma propriedade (mais uma daquele grupo foi comprada)
+                                break;
                             }
 
-                        }else{
-                            System.out.println("POBRE"); //futuramente ele vai poder vender o que tem para tentar comprar
-                        }
-                        
 
                     }
-                    
-                }else if(propriedadeDaCasa.getProprietario() != jogadorDaVez){
-                    if(dinheiroDosJogadores[jogadorDaVez] >= propriedadeDaCasa.getAluguel()){
-                        System.out.printf("Você pisou na propriedade do jogador %d e teve que pagar R$%d.00\n", propriedadeDaCasa.getProprietario() + 1, propriedadeDaCasa.getAluguel());
-                        dinheiroDosJogadores[jogadorDaVez] -= propriedadeDaCasa.getAluguel(); //jogador da vez paga
-                        dinheiroDosJogadores[propriedadeDaCasa.getProprietario()] += propriedadeDaCasa.getAluguel(); //proprietario recebe
-                    }else{
-                        //o cara vai ter que vender as propriedades que tem, ainda não decidimos como vamos fazer isso
+
+                } else if (propriedadeDaCasa.getProprietario() != jogadorDaVez) {
+                    if (dinheiroDosJogadores[jogadorDaVez] >= propriedadeDaCasa.getAluguel()) {
+                        System.out.printf("Você pisou na propriedade do jogador %d e teve que pagar R$%d.00\n",
+                                propriedadeDaCasa.getProprietario() + 1, propriedadeDaCasa.getAluguel());
+                        dinheiroDosJogadores[jogadorDaVez] -= propriedadeDaCasa.getAluguel(); // jogador da vez paga
+                        dinheiroDosJogadores[propriedadeDaCasa.getProprietario()] += propriedadeDaCasa.getAluguel(); // proprietario
+                                                                                                                     // recebe
+                    } else {
+                        // o cara vai ter que vender as propriedades que tem, ainda não decidimos como
+                        // vamos fazer isso
                     }
                 }
 
                 break;
-            case 2: //companhia
+            case 2: // companhia
                 Companhia companhiaDaCasa = companhias[casaPisadaPeloJogador.getPosicaoCartaCasa()];
 
-                if(companhiaDaCasa.getProprietario() == -1){
-                    System.out.printf("Você quer comprar o(a) %s como companhia por R$%d.00\n", companhiaDaCasa.getNome(), companhiaDaCasa.getPreco());
+                if (companhiaDaCasa.getProprietario() == -1) {
+                    System.out.printf("Você quer comprar o(a) %s como companhia por R$%d.00\n",
+                            companhiaDaCasa.getNome(), companhiaDaCasa.getPreco());
                     System.out.println("1 ---> Sim      2 ---> Não");
                     entrada = ler.nextInt();
-                    entrada = verificarEntradaValida(new int[] {1,2}, entrada);
+                    entrada = verificarEntradaValida(new int[] { 1, 2 }, entrada);
 
-                    if(entrada == 1){
-                        if(dinheiroDosJogadores[jogadorDaVez] >= companhiaDaCasa.getPreco()){
+                    if (entrada == 1) {
+                        if (dinheiroDosJogadores[jogadorDaVez] >= companhiaDaCasa.getPreco()) {
                             System.out.printf("O(a) %s agora é seu(sua)\n", companhiaDaCasa.getNome());
                             dinheiroDosJogadores[jogadorDaVez] -= companhiaDaCasa.getPreco();
-                            companhiaDaCasa.setProprietario(jogadorDaVez);   
-                        }else{
-                            System.out.println("POBRE"); //futuramente ele vai poder vender o que tem para tentar comprar
+                            companhiaDaCasa.setProprietario(jogadorDaVez);
+                        } else {
+                            System.out.println("POBRE"); // futuramente ele vai poder vender o que tem para tentar
+                                                         // comprar
                         }
-                        
+
                     }
 
-                }else if(companhiaDaCasa.getProprietario() != jogadorDaVez){
-                    if(dinheiroDosJogadores[jogadorDaVez] >= companhiaDaCasa.getValorConta() * somaDadoJogadores[jogadorDaVez]){
-                        System.out.printf("Você pisou na companhia do jogador %d e teve que pagar R$%d.00\n", companhiaDaCasa.getProprietario() + 1, companhiaDaCasa.getValorConta() * somaDadoJogadores[jogadorDaVez]);
-                        dinheiroDosJogadores[jogadorDaVez] -= companhiaDaCasa.getValorConta() * somaDadoJogadores[jogadorDaVez];
-                        dinheiroDosJogadores[companhiaDaCasa.getProprietario()] += (companhiaDaCasa.getValorConta() * somaDadoJogadores[jogadorDaVez]);
-                    }else{
-                        //o cara vai ter que vender as propriedades que tem, ainda não decidimos como vamos fazer isso
+                } else if (companhiaDaCasa.getProprietario() != jogadorDaVez) {
+                    if (dinheiroDosJogadores[jogadorDaVez] >= companhiaDaCasa.getValorConta()
+                            * somaDadoJogadores[jogadorDaVez]) {
+                        System.out.printf("Você pisou na companhia do jogador %d e teve que pagar R$%d.00\n",
+                                companhiaDaCasa.getProprietario() + 1,
+                                companhiaDaCasa.getValorConta() * somaDadoJogadores[jogadorDaVez]);
+                        dinheiroDosJogadores[jogadorDaVez] -= companhiaDaCasa.getValorConta()
+                                * somaDadoJogadores[jogadorDaVez];
+                        dinheiroDosJogadores[companhiaDaCasa.getProprietario()] += (companhiaDaCasa.getValorConta()
+                                * somaDadoJogadores[jogadorDaVez]);
+                    } else {
+                        // o cara vai ter que vender as propriedades que tem, ainda não decidimos como
+                        // vamos fazer isso
                     }
                 }
                 break;
-            case 3: //sorte ou revés
+            case 3: // sorte ou revés
                 sorteOuReves(jogadorDaVez, turnosRestantesNaCadeia, dinheiroDosJogadores, posicaoDosJogadores);
                 break;
-            case 4: //casos a parte
-                // a posição da carta diz qual caso a parte é (mesma ordem do SIGLAS_CASAS_ESPECIAIS no formatarCasa)
-                switch(casaPisadaPeloJogador.getPosicaoCartaCasa()){
-                    case 0: //cadeia (só visitando)
+            case 4: // casos a parte
+                // a posição da carta diz qual caso a parte é (mesma ordem do
+                // SIGLAS_CASAS_ESPECIAIS no formatarCasa)
+                switch (casaPisadaPeloJogador.getPosicaoCartaCasa()) {
+                    case 0: // cadeia (só visitando)
                         System.out.println("Você está apenas visitando a cadeia.");
 
                         break;
-                    case 1: //imposto de renda
+                    case 1: // imposto de renda
                         System.out.printf("Você caiu no Imposto de Renda e teve que pagar R$%d.00\n", IMPOSTO_DE_RENDA);
                         dinheiroDosJogadores[jogadorDaVez] -= IMPOSTO_DE_RENDA;
 
                         break;
-                    case 2: //férias
+                    case 2: // férias
                         System.out.println("Você está de férias, aproveite o descanso. Nada acontece.");
 
                         break;
-                    case 3: //lucros e dividendos
+                    case 3: // lucros e dividendos
                         System.out.printf("Você caiu em Lucros e Dividendos e recebeu R$%d.00\n", LUCROS_E_DIVIDENDOS);
                         dinheiroDosJogadores[jogadorDaVez] += LUCROS_E_DIVIDENDOS;
 
                         break;
-                    case 4: //vá pra cadeia
+                    case 4: // vá pra cadeia
                         System.out.println("Vá para a cadeia! Fique 3 turnos sem jogar !!!");
                         turnosRestantesNaCadeia[jogadorDaVez] = 3;
-                        posicaoDosJogadores[jogadorDaVez] = POSICAO_CADEIA; //o jogador vai pra casa da cadeia
+                        posicaoDosJogadores[jogadorDaVez] = POSICAO_CADEIA; // o jogador vai pra casa da cadeia
 
                         break;
                 }
@@ -645,20 +666,22 @@ public class BancoImobiliarioBETA { //digite (chcp 65001) no terminal pra libera
         }
     }
 
-
     public static void main(String[] args) {
         System.out.println("Com quantos jogadores quer jogar? Respostas de 2 a 4");
         entrada = ler.nextInt();
-        entrada = verificarEntradaValida(new int[] {2, 3, 4}, entrada);
+        entrada = verificarEntradaValida(new int[] { 2, 3, 4 }, entrada);
         JOGADORES = entrada;
 
+        //variaveis do main relacionadas ao grupo da propriedade e construção de casa
         int[][] gruposJogadorEhDono = criarGruposPropriedadesJogador();
-
+        int nGruposPosseJogadorDaVez = 0;
+        int[] gruposPosseJogadorDaVez;
+        int[] propriedadesDoGrupo = new int[6];
 
         int jogadorDaVez = 0;
         int[] somaDadoJogadores = new int[JOGADORES];
         int[] posicaoDosJogadores = new int[JOGADORES];
-        int[] dinheiroDosJogadores = {2558000, 2558000, 2558000, 2558000};
+        int[] dinheiroDosJogadores = { 2558000, 2558000, 2558000, 2558000 };
         // cadeia
         int[] turnosRestantesNaCadeia = new int[JOGADORES];
         boolean jogadorJogaDeNovo = false;
@@ -669,8 +692,8 @@ public class BancoImobiliarioBETA { //digite (chcp 65001) no terminal pra libera
         boolean[] jogadorEstaNoDesempate = new boolean[JOGADORES];
         int quantidadeDeJogadoresNoDesempate = 0;
 
-
-        // variaveis relacionadas ao tabuleiro (cada número é a posição da casa, -1 é o meio do tabuleiro, que fica vazio)
+        // variaveis relacionadas ao tabuleiro (cada número é a posição da casa, -1 é o
+        // meio do tabuleiro, que fica vazio)
         int[][] desenhoDoTabuleiro = {
                 { 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30 },
                 { 19, -1, -1, -1, -1, -1, -1, -1, -1, -1, 31 },
@@ -701,57 +724,63 @@ public class BancoImobiliarioBETA { //digite (chcp 65001) no terminal pra libera
             }
 
             jogadorDaVez++;
-        }//todos os jogadores jogam dois dados para decidir quem começa
+        } // todos os jogadores jogam dois dados para decidir quem começa
 
         System.out.println();
 
-        quantidadeDeJogadoresNoDesempate = colocarNoDesempate(maiorSomaDosDados, somaDadoJogadores, jogadorEstaNoDesempate);
-        jogadorDaVez = decidirJogadorQueComeca(quantidadeDeJogadoresNoDesempate, jogadorEstaNoDesempate, somaDadoJogadores,
-                                               maiorSomaDosDados);
+        quantidadeDeJogadoresNoDesempate = colocarNoDesempate(maiorSomaDosDados, somaDadoJogadores,
+                jogadorEstaNoDesempate);
+        jogadorDaVez = decidirJogadorQueComeca(quantidadeDeJogadoresNoDesempate, jogadorEstaNoDesempate,
+                somaDadoJogadores,
+                maiorSomaDosDados);
 
         System.out.printf("\nJogador %d começa:\n\n", jogadorDaVez + 1);
 
-        while (true) { //jogo
+        while (true) { // jogo
 
             System.out.printf("Jogador %d: R$%d\n", jogadorDaVez + 1, dinheiroDosJogadores[jogadorDaVez]);
 
             if (turnosRestantesNaCadeia[jogadorDaVez] > 0) {
-                System.out.printf("Você está na cadeia, espere mais %d turnos e seja livre !!!\n", turnosRestantesNaCadeia[jogadorDaVez]);
+                System.out.printf("Você está na cadeia, espere mais %d turnos e seja livre !!!\n",
+                        turnosRestantesNaCadeia[jogadorDaVez]);
                 turnosRestantesNaCadeia[jogadorDaVez]--;
                 jogadorJogaDeNovo = false;
-                //se for pra cadeia desativa o jogar de novo, pra não ter risco dele jogar de novo, tirar dados iguais
-                //acabar indo pra cadeia de outra forma (sorte ou reves, casa especial etc.) e jogadorJogaDeNovoContinuar
+                // se for pra cadeia desativa o jogar de novo, pra não ter risco dele jogar de
+                // novo, tirar dados iguais
+                // acabar indo pra cadeia de outra forma (sorte ou reves, casa especial etc.) e
+                // jogadorJogaDeNovoContinuar
 
-            }
-            else {
+            } else {
                 valorDado1 = girarDado();
                 valorDado2 = girarDado();
                 somaDadoJogadores[jogadorDaVez] = valorDado1 + valorDado2;
-                DadoAnimado.animarDados(valorDado1, valorDado2); //animação dado
+                DadoAnimado.animarDados(valorDado1, valorDado2); // animação dado
                 System.out.printf("\n---------- RESULTADO FINAL: %d ---------\n", somaDadoJogadores[jogadorDaVez]);
 
-                posicaoDosJogadores[jogadorDaVez] += somaDadoJogadores[jogadorDaVez]; //soma a posição do jogador de acordo com o resultado dos dados
+                posicaoDosJogadores[jogadorDaVez] += somaDadoJogadores[jogadorDaVez]; // soma a posição do jogador de
+                                                                                      // acordo com o resultado dos
+                                                                                      // dados
 
-                if(posicaoDosJogadores[jogadorDaVez] >= CASAS_TABULEIRO){
+                if (posicaoDosJogadores[jogadorDaVez] >= CASAS_TABULEIRO) {
                     System.out.println("Você deu uma volta no tabuleiro, ganhando assim mais R$ 200.000");
                     posicaoDosJogadores[jogadorDaVez] %= CASAS_TABULEIRO;
                     dinheiroDosJogadores[jogadorDaVez] += 200000;
                 }
 
-                if(valorDado1 == valorDado2){
+                if (valorDado1 == valorDado2) {
                     vezesSeguidasComDadosIguais++;
 
-                    if(vezesSeguidasComDadosIguais < 3){
+                    if (vezesSeguidasComDadosIguais < 3) {
                         System.out.println("Você tirou dados iguais jogue novamente !!!");
                         jogadorJogaDeNovo = true;
-                    }else{
+                    } else {
                         System.out.println("Você foi pra cadeia, fique 3 turnos sem jogar !!!");
                         posicaoDosJogadores[jogadorDaVez] = POSICAO_CADEIA;
                         turnosRestantesNaCadeia[jogadorDaVez] = 3;
                         vezesSeguidasComDadosIguais = 0;
-                        
+
                     }
-                }else{
+                } else {
                     jogadorJogaDeNovo = false;
                     vezesSeguidasComDadosIguais = 0;
                 }
@@ -763,10 +792,10 @@ public class BancoImobiliarioBETA { //digite (chcp 65001) no terminal pra libera
 
                         if (desenhoDoTabuleiro[linha][coluna] >= 0) {
 
-                            System.out.print(formatarCasa(desenhoDoTabuleiro[linha][coluna], posicaoDosJogadores, casasDoTabuleiro, propriedades));
+                            System.out.print(formatarCasa(desenhoDoTabuleiro[linha][coluna], posicaoDosJogadores,
+                                    casasDoTabuleiro, propriedades));
 
-                        }
-                        else {
+                        } else {
 
                             System.out.print("       ");
                         }
@@ -775,21 +804,114 @@ public class BancoImobiliarioBETA { //digite (chcp 65001) no terminal pra libera
                     System.out.println("\n");
                 }
 
-                pisarCasa(posicaoDosJogadores, dinheiroDosJogadores, turnosRestantesNaCadeia, somaDadoJogadores, jogadorDaVez, casasDoTabuleiro, propriedades, companhias, gruposJogadorEhDono);
-                //o que acontece quando o jogador pisar na casa, antes de mudar o jogador da vez
+                pisarCasa(posicaoDosJogadores, dinheiroDosJogadores, turnosRestantesNaCadeia, somaDadoJogadores,
+                        jogadorDaVez, casasDoTabuleiro, propriedades, companhias, gruposJogadorEhDono);
+                // o que acontece quando o jogador pisar na casa, antes de mudar o jogador da
+                // vez
 
-            }
+                // opção de construir casas
+                construirCasa: while (gruposJogadorEhDono[jogadorDaVez][0] != -1) {
+                    System.out.println("Você quer construir casas em alguma das suas propridades?");
+                    System.out.println("1 ---> Sim      2 ---> Não");
+                    entrada = ler.nextInt();
+                    entrada = verificarEntradaValida(new int[] { 1, 2 }, entrada);
 
+                    if(entrada == 2){
+                        break;
+                    }
 
+                    
+                    System.out.println("Você pode construir casa na(s) propriedade de grupo(s): ");
+                    nGruposPosseJogadorDaVez = 0;
+                    for (int j = 0; j < gruposJogadorEhDono[jogadorDaVez].length; j++) {
+                            
+                        if(gruposJogadorEhDono[jogadorDaVez][j] == -1){
+                            break;
+                        }
+                                
+                        nGruposPosseJogadorDaVez++;
 
-            if(!jogadorJogaDeNovo){
-                jogadorDaVez = (jogadorDaVez + 1) % JOGADORES;
-            }
+                    }
 
-            // digite 67 pra encerrar o jogo
-            if (ler.nextInt() == 67) {
-                break;
-            }
+                    gruposPosseJogadorDaVez = new int[nGruposPosseJogadorDaVez];
+                        for (int j = 0; j < gruposJogadorEhDono[jogadorDaVez].length; j++) {
+                            if(gruposJogadorEhDono[jogadorDaVez][j] == -1){
+                                break;
+                            }
+
+                            gruposPosseJogadorDaVez[j] = gruposJogadorEhDono[jogadorDaVez][j];
+                            System.out.print(gruposPosseJogadorDaVez[j] + "     ");
+
+                        }
+
+                        entrada = ler.nextInt();
+                        entrada = verificarEntradaValida(gruposPosseJogadorDaVez, entrada);
+                        contador = 0;
+
+                        System.out.printf("Grupo %d:\n", entrada);
+                        for (int j = 0; j < propriedades.length; j++) { //percorre todas as propriedades
+                            if(propriedades[j].getGrupo() == entrada){
+                                System.out.printf("%s - propriedade: %d\n", propriedades[j].getNome(), j); //imprime a propriedade e o número dela
+                                propriedadesDoGrupo[contador] = j; //adiciona as propriedades do grupo
+                                contador++; //manda pra próxima propriedade do grupo
+                            }
+                        }
+
+                        for(int j = contador; j < propriedadesDoGrupo.length; j++){
+                            //o vetor tem tamanho 6 (propriedades do maior grupo), se o grupo tem menos o que sobra vira -1
+                            propriedadesDoGrupo[j] = -1;
+                        }
+
+                            entrada = ler.nextInt();
+                            entrada = verificarEntradaValida(propriedadesDoGrupo, entrada);
+
+                            while(entrada == -1){
+                                System.out.println("Entrada inválida, tente novamente !!!");
+                                entrada = ler.nextInt();
+                                entrada = verificarEntradaValida(propriedadesDoGrupo, entrada);
+                            }
+
+                            while(propriedades[entrada].getNumeroCasas() > 4){ 
+                                System.out.println("Máximo de casas na propriedade atingido");
+                                System.out.println("Selecione outra propriedade do grupo ou digite 2 para parar a construção");
+                                entrada = ler.nextInt();
+
+                                if(entrada == 2){
+                                    break construirCasa;
+                                }
+
+                                entrada = verificarEntradaValida(propriedadesDoGrupo, entrada);
+
+                                while(entrada == -1){
+                                    System.out.println("Entrada inválida, tente novamente !!!");
+                                    entrada = ler.nextInt();
+                                    entrada = verificarEntradaValida(propriedadesDoGrupo, entrada);
+                                }
+
+                            }
+                            propriedades[entrada].setNumeroCasas(propriedades[entrada].getNumeroCasas() + 1);
+
+                            if(propriedades[entrada].getNumeroCasas() <= 2){
+                                propriedades[entrada].setAluguel(propriedades[entrada].getAluguel() * 3);
+                            }else if(propriedades[entrada].getNumeroCasas() <= 3){
+                                propriedades[entrada].setAluguel(propriedades[entrada].getAluguel() * 2);
+                            }else{
+                                propriedades[entrada].setAluguel((propriedades[entrada].getAluguel() * 3) / 2);
+                            }
+
+                            System.out.printf("O aluguel do(a) %s agora custa R$%d\n", propriedades[entrada].getNome(), propriedades[entrada].getAluguel());
+                    
+                }
+
+                if (!jogadorJogaDeNovo) {
+                    jogadorDaVez = (jogadorDaVez + 1) % JOGADORES;
+                }
+
+                // digite 67 pra encerrar o jogo
+                if (ler.nextInt() == 67) {
+                    break;
+                }
+            } 
         } // fim do while
-    } // fim do main
-} // fim da classe
+    } //fim do main
+} //fim da classe
