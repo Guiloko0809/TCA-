@@ -285,7 +285,7 @@ public class BancoImobiliarioBETA { // digite (chcp 65001) no terminal pra liber
         String siglaDaCasa = "I"; // a casa 0 é o início
         int grupoDaPropriedade = 0;
 
-        if (casaAtual.getTipoDaCasa() == 1) {
+        if (casaAtual.getTipoDaCasa() == 1) { //propriedade
 
             siglaDaCasa = "PR";
             grupoDaPropriedade = propriedades[casaAtual.getPosicaoCartaCasa()].getGrupo();
@@ -830,13 +830,13 @@ public class BancoImobiliarioBETA { // digite (chcp 65001) no terminal pra liber
                         entrada = verificarEntradaValida(gruposPosseJogadorDaVez, entrada);
                         contador = 0;
 
-                        System.out.printf("Grupo %d:\n", entrada);
+                        System.out.printf("\nGrupo %d:\n", entrada); //azul claro (brilhante)
                         for (int j = 0; j < propriedades.length; j++) { //percorre todas as propriedades
                             if(propriedades[j].getGrupo() == entrada){
-                                System.out.printf("%s - propriedade: %d\n", propriedades[j].getNome(), j); //imprime a propriedade e o número dela
+                                System.out.printf("%s - propriedade: %d     custo: R$%d\n", propriedades[j].getNome(), j, propriedades[j].getPrecoCasaHotel()); //imprime a propriedade e o número dela
                                 propriedadesDoGrupo[contador] = j; //adiciona as propriedades do grupo
                                 contador++; //manda pra próxima propriedade do grupo
-                            }
+                            }//imprimir o nome da propriedade com a cor do grupo
                         }
 
                         for(int j = contador; j < propriedadesDoGrupo.length; j++){
@@ -902,6 +902,7 @@ public class BancoImobiliarioBETA { // digite (chcp 65001) no terminal pra liber
                             }
 
                             System.out.printf("O aluguel do(a) %s agora custa R$%d\n", propriedades[entrada].getNome(), propriedades[entrada].getAluguel());
+                            System.out.printf("\nJogador %d: R$%d\n", jogadorDaVez + 1, dinheiroDosJogadores[jogadorDaVez]); //pro jogador saber quando dinheiro ele tem agora
                     
                 }
 
