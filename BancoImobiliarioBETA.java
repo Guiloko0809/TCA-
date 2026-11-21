@@ -65,7 +65,7 @@ public class BancoImobiliarioBETA { // digite (chcp 65001) no terminal pra liber
 
             case 1:
                 System.out.println("Você trabalhou por 30 dias! Quanto esforço!");
-                System.out.println("Você ganohu R$ 1.741,00!");
+                System.out.println("Você ganhou R$ 1.741,00!");
                 dinheiroDosJogadores[jogadorDaVez] += 1741;
 
                 break;
@@ -151,8 +151,7 @@ public class BancoImobiliarioBETA { // digite (chcp 65001) no terminal pra liber
                 break;
 
             case 13:
-                System.out.println(
-                        "No trajeto de volta para sua casa, você é encurralado por dois caras em uma moto e acaba sendo asaltado.");
+                System.out.println("No trajeto de volta para sua casa, você é encurralado por dois caras em uma moto e acaba sendo assaltado.");
                 System.out.println("Você perdeu R$50.000.");
                 dinheiroDosJogadores[jogadorDaVez] -= 50000;
 
@@ -453,9 +452,6 @@ public class BancoImobiliarioBETA { // digite (chcp 65001) no terminal pra liber
                             }
                         }
 
-                        for (int j = 0; j < gruposJogadorEhDono[0].length; j++) {
-                            System.out.println(gruposJogadorEhDono[jogadorDaVez][j]);
-                        } // TESTE
                     }
                 }
 
@@ -577,16 +573,10 @@ public class BancoImobiliarioBETA { // digite (chcp 65001) no terminal pra liber
                     }
 
                 } else if (propriedadeDaCasa.getProprietario() != jogadorDaVez) {
-                    if (dinheiroDosJogadores[jogadorDaVez] >= propriedadeDaCasa.getAluguel()) {
-                        System.out.printf("Você pisou na propriedade do jogador %d e teve que pagar R$%d.00\n",
-                                propriedadeDaCasa.getProprietario() + 1, propriedadeDaCasa.getAluguel());
-                        dinheiroDosJogadores[jogadorDaVez] -= propriedadeDaCasa.getAluguel(); // jogador da vez paga
-                        dinheiroDosJogadores[propriedadeDaCasa.getProprietario()] += propriedadeDaCasa.getAluguel(); // proprietario
-                                                                                                                     // recebe
-                    } else {
-                        // o cara vai ter que vender as propriedades que tem, ainda não decidimos como
-                        // vamos fazer isso
-                    }
+                    System.out.printf("Você pisou na propriedade do jogador %d e teve que pagar R$%d.00\n", 
+                        propriedadeDaCasa.getProprietario() + 1, propriedadeDaCasa.getAluguel());
+                    dinheiroDosJogadores[jogadorDaVez] -= propriedadeDaCasa.getAluguel(); // jogador da vez paga
+                    dinheiroDosJogadores[propriedadeDaCasa.getProprietario()] += propriedadeDaCasa.getAluguel(); //proprietário recebe
                 }
 
                 break;
@@ -601,31 +591,17 @@ public class BancoImobiliarioBETA { // digite (chcp 65001) no terminal pra liber
                     entrada = verificarEntradaValida(new int[] { 1, 2 }, entrada);
 
                     if (entrada == 1) {
-                        if (dinheiroDosJogadores[jogadorDaVez] >= companhiaDaCasa.getPreco()) {
-                            System.out.printf("O(a) %s agora é seu(sua)\n", companhiaDaCasa.getNome());
-                            dinheiroDosJogadores[jogadorDaVez] -= companhiaDaCasa.getPreco();
-                            companhiaDaCasa.setProprietario(jogadorDaVez);
-                        } else {
-                            System.out.println("POBRE"); // futuramente ele vai poder vender o que tem para tentar
-                                                         // comprar
-                        }
-
+                        System.out.printf("O(a) %s agora é seu(sua)\n", companhiaDaCasa.getNome());
+                        dinheiroDosJogadores[jogadorDaVez] -= companhiaDaCasa.getPreco(); //paga (gasta) o preço da companhia
+                        companhiaDaCasa.setProprietario(jogadorDaVez); //a companhia agora está sob a posse do jogador da vez
                     }
 
                 } else if (companhiaDaCasa.getProprietario() != jogadorDaVez) {
-                    if (dinheiroDosJogadores[jogadorDaVez] >= companhiaDaCasa.getValorConta()
-                            * somaDadoJogadores[jogadorDaVez]) {
-                        System.out.printf("Você pisou na companhia do jogador %d e teve que pagar R$%d.00\n",
-                                companhiaDaCasa.getProprietario() + 1,
-                                companhiaDaCasa.getValorConta() * somaDadoJogadores[jogadorDaVez]);
-                        dinheiroDosJogadores[jogadorDaVez] -= companhiaDaCasa.getValorConta()
-                                * somaDadoJogadores[jogadorDaVez];
-                        dinheiroDosJogadores[companhiaDaCasa.getProprietario()] += (companhiaDaCasa.getValorConta()
-                                * somaDadoJogadores[jogadorDaVez]);
-                    } else {
-                        // o cara vai ter que vender as propriedades que tem, ainda não decidimos como
-                        // vamos fazer isso
-                    }
+                    //na companhia paga-se o valor da conta da companhia * o resultado dos dados
+                    System.out.printf("Você pisou na companhia do jogador %d e teve que pagar R$%d.00\n",
+                        companhiaDaCasa.getProprietario() + 1, companhiaDaCasa.getValorConta() * somaDadoJogadores[jogadorDaVez]);
+                    dinheiroDosJogadores[jogadorDaVez] -= companhiaDaCasa.getValorConta() * somaDadoJogadores[jogadorDaVez]; //jogador da vez paga
+                    dinheiroDosJogadores[companhiaDaCasa.getProprietario()] += (companhiaDaCasa.getValorConta() * somaDadoJogadores[jogadorDaVez]); //proprietário recebe
                 }
                 break;
             case 3: // sorte ou revés
@@ -738,11 +714,11 @@ public class BancoImobiliarioBETA { // digite (chcp 65001) no terminal pra liber
 
         while (true) { // jogo
 
-            System.out.printf("Jogador %d: R$%d\n", jogadorDaVez + 1, dinheiroDosJogadores[jogadorDaVez]);
+            System.out.printf("\nJogador %d: R$%d\n", jogadorDaVez + 1, dinheiroDosJogadores[jogadorDaVez]);
 
             if (turnosRestantesNaCadeia[jogadorDaVez] > 0) {
-                System.out.printf("Você está na cadeia, espere mais %d turnos e seja livre !!!\n",
-                        turnosRestantesNaCadeia[jogadorDaVez]);
+                System.out.printf("Você está na cadeia, espere mais %d turnos e seja livre !!!\n\n",
+                turnosRestantesNaCadeia[jogadorDaVez]);
                 turnosRestantesNaCadeia[jogadorDaVez]--;
                 jogadorJogaDeNovo = false;
                 // se for pra cadeia desativa o jogar de novo, pra não ter risco dele jogar de
@@ -778,7 +754,7 @@ public class BancoImobiliarioBETA { // digite (chcp 65001) no terminal pra liber
                         posicaoDosJogadores[jogadorDaVez] = POSICAO_CADEIA;
                         turnosRestantesNaCadeia[jogadorDaVez] = 3;
                         vezesSeguidasComDadosIguais = 0;
-
+                        jogadorJogaDeNovo = false;
                     }
                 } else {
                     jogadorJogaDeNovo = false;
@@ -806,12 +782,17 @@ public class BancoImobiliarioBETA { // digite (chcp 65001) no terminal pra liber
 
                 pisarCasa(posicaoDosJogadores, dinheiroDosJogadores, turnosRestantesNaCadeia, somaDadoJogadores,
                         jogadorDaVez, casasDoTabuleiro, propriedades, companhias, gruposJogadorEhDono);
-                // o que acontece quando o jogador pisar na casa, antes de mudar o jogador da
-                // vez
+                // o que acontece quando o jogador pisar na casa, antes de mudar o jogador da vez
+
+                if (turnosRestantesNaCadeia[jogadorDaVez] > 0) { //para caso o jogador vá pra cadeia por outro meio
+                    jogadorJogaDeNovo = false;                   //sorte ou revés, casa especial etc.
+                    vezesSeguidasComDadosIguais = 0;
+                }
+
 
                 // opção de construir casas
                 construirCasa: while (gruposJogadorEhDono[jogadorDaVez][0] != -1) {
-                    System.out.println("Você quer construir casas em alguma das suas propridades?");
+                    System.out.println("Você quer construir casas em alguma das suas propriedades?");
                     System.out.println("1 ---> Sim      2 ---> Não");
                     entrada = ler.nextInt();
                     entrada = verificarEntradaValida(new int[] { 1, 2 }, entrada);
@@ -858,7 +839,7 @@ public class BancoImobiliarioBETA { // digite (chcp 65001) no terminal pra liber
                         }
 
                         for(int j = contador; j < propriedadesDoGrupo.length; j++){
-                            //o vetor tem tamanho 6 (propriedades do maior grupo), se o grupo tem menos o que sobra vira -1
+                            //o vetor tem tamanho 6 (número de propriedades do maior grupo), se o grupo tem menos o que sobra vira -1
                             propriedadesDoGrupo[j] = -1;
                         }
 
@@ -867,16 +848,24 @@ public class BancoImobiliarioBETA { // digite (chcp 65001) no terminal pra liber
 
                             while(entrada == -1){
                                 System.out.println("Entrada inválida, tente novamente !!!");
+                                System.out.println("Selecione uma propriedade do grupo");
+                                System.out.println("100 ---> Parar construção");
                                 entrada = ler.nextInt();
+
+                                if(entrada == 100){
+                                    break construirCasa;
+                                }
+
                                 entrada = verificarEntradaValida(propriedadesDoGrupo, entrada);
                             }
 
-                            while(propriedades[entrada].getNumeroCasas() > 4){ 
+                            while(propriedades[entrada].getNumeroCasas() == 4){ 
                                 System.out.println("Máximo de casas na propriedade atingido");
-                                System.out.println("Selecione outra propriedade do grupo ou digite 2 para parar a construção");
+                                System.out.println("Selecione outra propriedade do grupo");
+                                System.out.println("100 ---> Parar construção");
                                 entrada = ler.nextInt();
 
-                                if(entrada == 2){
+                                if(entrada == 100){
                                     break construirCasa;
                                 }
 
@@ -884,18 +873,30 @@ public class BancoImobiliarioBETA { // digite (chcp 65001) no terminal pra liber
 
                                 while(entrada == -1){
                                     System.out.println("Entrada inválida, tente novamente !!!");
+                                    System.out.println("Selecione outra propriedade do grupo");
+                                    System.out.println("100 ---> Parar construção");
                                     entrada = ler.nextInt();
+
+                                    if(entrada == 100){
+                                        break construirCasa;
+                                    }
+
                                     entrada = verificarEntradaValida(propriedadesDoGrupo, entrada);
                                 }
 
                             }
+
                             propriedades[entrada].setNumeroCasas(propriedades[entrada].getNumeroCasas() + 1);
+                            dinheiroDosJogadores[jogadorDaVez] -= propriedades[entrada].getPrecoCasaHotel();
 
                             if(propriedades[entrada].getNumeroCasas() <= 2){
+                                System.out.println("Você construiu uma casa !!!");
                                 propriedades[entrada].setAluguel(propriedades[entrada].getAluguel() * 3);
                             }else if(propriedades[entrada].getNumeroCasas() <= 3){
+                                System.out.println("Você construiu uma casa !!!");
                                 propriedades[entrada].setAluguel(propriedades[entrada].getAluguel() * 2);
                             }else{
+                                System.out.println("Você construiu um hotel !!!");
                                 propriedades[entrada].setAluguel((propriedades[entrada].getAluguel() * 3) / 2);
                             }
 
@@ -903,15 +904,16 @@ public class BancoImobiliarioBETA { // digite (chcp 65001) no terminal pra liber
                     
                 }
 
-                if (!jogadorJogaDeNovo) {
-                    jogadorDaVez = (jogadorDaVez + 1) % JOGADORES;
-                }
-
                 // digite 67 pra encerrar o jogo
                 if (ler.nextInt() == 67) {
                     break;
                 }
-            } 
+            }
+            
+            if (!jogadorJogaDeNovo) {
+                jogadorDaVez = (jogadorDaVez + 1) % JOGADORES;
+            }
+
         } // fim do while
     } //fim do main
 } //fim da classe
