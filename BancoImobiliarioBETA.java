@@ -137,7 +137,7 @@ public class BancoImobiliarioBETA { // digite (chcp 65001) no terminal pra liber
 
             case 11:
                 System.out.println(
-                        "Você perde o campeonato de farmar aura. Para ninguém saber a vergonha que passou, você paga quem fez seus vídeos para eles não postar.");
+                        "Você perde o campeonato de farmar aura. Para ninguém saber a vergonha que passou, você paga quem fez seus vídeos para eles não postarem.");
                 System.out.println("Você perdeu R$67.667.");
                 dinheiroDosJogadores[jogadorDaVez] -= 67667;
 
@@ -612,8 +612,9 @@ public class BancoImobiliarioBETA { // digite (chcp 65001) no terminal pra liber
                 // SIGLAS_CASAS_ESPECIAIS no formatarCasa)
                 switch (casaPisadaPeloJogador.getPosicaoCartaCasa()) {
                     case 0: // cadeia (só visitando)
-                        System.out.println("Você está apenas visitando a cadeia.");
-
+                        if(turnosRestantesNaCadeia[jogadorDaVez] == 0){ //não está preso
+                            System.out.println("Você está apenas visitando a cadeia.");
+                        }
                         break;
                     case 1: // imposto de renda
                         System.out.printf("Você caiu no Imposto de Renda e teve que pagar R$%d.00\n", IMPOSTO_DE_RENDA);
