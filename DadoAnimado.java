@@ -84,9 +84,4 @@ public class DadoAnimado{
         }
     };
 
-   public static void main(String [] args) {
-    //testes
-    animarDados(1, 2);
-
-   }
 }

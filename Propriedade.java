@@ -23,7 +23,7 @@ public class Propriedade {
         propriedades[7] = new Propriedade("Don Riter", 180000, 3, 14000, 100000, 100000);
         propriedades[8] = new Propriedade("Irani Floresta", 180000, 3, 14000, 100000, 100000);
         propriedades[9] = new Propriedade("Panorâmica", 400000, 4, 35000, 200000, 200000);
-        propriedades[10] = new Propriedade("Cadetral Nossa Senhora Aparecida", 350000, 4, 50000, 200000, 175000);
+        propriedades[10] = new Propriedade("Catedral Nossa Senhora Aparecida", 350000, 4, 50000, 200000, 175000);
         propriedades[11] = new Propriedade("Avenida Carlos Gomes", 120000, 5, 6000, 50000, 50000);
         propriedades[12] = new Propriedade("Shopping Catuai", 100000, 5, 8000, 50000, 60000);
         propriedades[13] = new Propriedade("Avenida Assunção", 140000, 6, 8000, 50000, 60000);
@@ -41,12 +41,12 @@ public class Propriedade {
     //construtores
     public Propriedade(String nome, int preco, int grupo, int aluguel, int precoCasaHotel, int valorHipoteca){
         this.nome = nome;
-        this.proprietario = -1; //cria a propriedade sem proprietario (-1, pois 0 é o Jogador 1)
+        this.proprietario = 0; //cria a propriedade sem proprietario
         this.preco = preco;
         this.grupo = grupo; 
         this.aluguel = aluguel;
         this.precoCasaHotel = precoCasaHotel;
-        this.numeroCasas = 0; //começa sem nenhuma casa (5 casas = hotel)
+        this.numeroCasas = 0; //começa sem nenhuma casa (4 casas = hotel)
         this.valorHipoteca = valorHipoteca;
     }
 

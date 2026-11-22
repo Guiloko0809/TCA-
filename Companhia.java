@@ -13,7 +13,7 @@ public class Companhia {
         companhias[2] = new Companhia("Petrobras", 200000, 50000, 100000 );
         companhias[3] = new Companhia("Aeroporto Municipal de Cascavel", 200000, 50000, 100000 );
         companhias[4] = new Companhia("Banco do Brasil", 150000, 40000, 75000 );
-        companhias[5] = new Companhia("Suap", 15000, 40000, 75000 );
+        companhias[5] = new Companhia("Suap", 150000, 40000, 75000 );
         return companhias;
     }
 
@@ -21,7 +21,7 @@ public class Companhia {
     public Companhia(String nome, int preco, int valorConta, int valorHipoteca){
         this.nome = nome;
         this.preco = preco;
-        this.proprietario = 0; //cria sem proprietário
+        this.proprietario = -1; //cria sem proprietário
         this.valorConta = valorConta;
         this.valorHipoteca = valorHipoteca;
     }
