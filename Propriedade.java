@@ -1,6 +1,4 @@
 public class Propriedade {
-    public static final int MAX_CASAS = 5; //4 casas + 1 hotel (numeroCasas = 5 significa hotel)
-
     private String nome;
     private int proprietario;
     private int preco;  
@@ -41,7 +39,7 @@ public class Propriedade {
     //construtores
     public Propriedade(String nome, int preco, int grupo, int aluguel, int precoCasaHotel, int valorHipoteca){
         this.nome = nome;
-        this.proprietario = 0; //cria a propriedade sem proprietario
+        this.proprietario = -1; //cria a propriedade sem proprietario
         this.preco = preco;
         this.grupo = grupo; 
         this.aluguel = aluguel;
@@ -55,28 +53,6 @@ public class Propriedade {
 
     public Propriedade(){
         
-    }
-
-    //multiplicador do aluguel conforme as construções: 0 casas, 1, 2, 3, 4 casas e hotel (ajuste como quiser)
-    private static final int[] MULTIPLICADOR_ALUGUEL = {1, 2, 3, 4, 5, 6};
-
-    //aluguel que o visitante paga, já contando as casas/hotel
-    public int calcularAluguel(){
-        return aluguel * MULTIPLICADOR_ALUGUEL[numeroCasas];
-    }
-
-    //construção
-    public boolean temHotel(){
-        return numeroCasas == MAX_CASAS;
-    }
-
-    //constrói uma casa (ou o hotel, se já tiver 4 casas). Retorna false se já tem hotel
-    public boolean construir(){
-        if(temHotel()){
-            return false;
-        }
-        numeroCasas++;
-        return true;
     }
 
     //getters 
