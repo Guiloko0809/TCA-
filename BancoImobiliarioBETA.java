@@ -5,14 +5,14 @@ import java.util.Arrays;
 public class BancoImobiliarioBETA { // digite (chcp 65001) no terminal pra liberar os caracteres (windows apenas)
 
     // CONSTANTES
-    public static int JOGADORES; // não é final porque muda de acordo com o número o player escolhe
-    public static final int GRUPOS = 7;
-    public static final int CASAS_TABULEIRO = 40;
+    static int JOGADORES; // não é final porque muda de acordo com o número o player escolhe
+    static final int GRUPOS = 7;
+    static final int CASAS_TABULEIRO = 40;
 
     // CONSTANTES relacionadas a casas especiais
-    public static final int IMPOSTO_DE_RENDA = 200000; // valor que o jogador paga ao cair no imposto de renda
-    public static final int LUCROS_E_DIVIDENDOS = 200000; // valor que o jogador recebe ao cair em lucros e dividendos
-    public static final int POSICAO_CADEIA = 10; // posição da casa 'cadeia' no tabuleiro, se um jogador vai pra cadeia ele vai pra essa casa
+    static final int IMPOSTO_DE_RENDA = 200000; // valor que o jogador paga ao cair no imposto de renda
+    static final int LUCROS_E_DIVIDENDOS = 200000; // valor que o jogador recebe ao cair em lucros e dividendos
+    static final int POSICAO_CADEIA = 10; // posição da casa 'cadeia' no tabuleiro, se um jogador vai pra cadeia ele vai pra essa casa
 
     // dados
     static Random geradorAleatorio = new Random();
@@ -28,16 +28,6 @@ public class BancoImobiliarioBETA { // digite (chcp 65001) no terminal pra liber
     static int[] casasConstruidasPeloJogador ;
     static int[] hoteisConstruidosPeloJogador ;
 
-    final static Scanner ler = new Scanner(System.in);
-
-    public static int girarDado() {
-        return geradorAleatorio.nextInt(6) + 1;
-    } // gira um dado de [1, 6]
-
-    public static int sortearSorteOuReves() {
-        return geradorAleatorio.nextInt(20);
-    } // método para sortear um número de 0 a 19, cujo é utilizado no método sorteOuReves()
-
     // variaveis globais referentes as propriedades
     static int[] propriedadesCompradasPorGrupo = propriedadesCompradasPorGrupo();
     static int[] grupo1 = criarProprietariosDoGrupo(3);
@@ -48,6 +38,24 @@ public class BancoImobiliarioBETA { // digite (chcp 65001) no terminal pra liber
     static int[] grupo6 = criarProprietariosDoGrupo(3);
     static int[] grupo7 = criarProprietariosDoGrupo(3);
 
+    //cores
+    // 0 a 3 cor dos jogador || 4 é cor do dinheiro
+    static final String[] CORES_TEXTO = { 
+        "\u001B[31;1m", "\u001B[34;1m", "\u001B[32;1m", "\u001B[33;1m", "\u001B[38;5;46m"
+    };
+    static final String CODIGO_RESETAR_COR = "\u001B[0m";
+
+    final static Scanner ler = new Scanner(System.in);
+
+    public static int girarDado() {
+        return geradorAleatorio.nextInt(6) + 1;
+    } // gira um dado de [1, 6]
+
+    public static int sortearSorteOuReves() {
+        return geradorAleatorio.nextInt(20);
+    } // método para sortear um número de 0 a 19, cujo é utilizado no método sorteOuReves()
+
+    
     public static void sorteOuReves(int jogadorDaVez, int[] turnosRestantesNaCadeia, int[] dinheiroDosJogadores,
             int[] posicaoDosJogadores) {
 
@@ -234,7 +242,8 @@ public class BancoImobiliarioBETA { // digite (chcp 65001) no terminal pra liber
                 break;
 
             case 19:
-                System.out.println("Você deu propina para um policial federal e mandou ele prender alguem!");
+                System.out.printf("Você deu propina para um %spolicial%s %sfederal e mandou ele prender alguem!\n",
+                    CORES_TEXTO[1], CODIGO_RESETAR_COR, CORES_TEXTO[3]);
                 System.out.println("Quem você quer mandar para a cadeia?");
 
                 entrada = ler.nextInt();
@@ -263,10 +272,6 @@ public class BancoImobiliarioBETA { // digite (chcp 65001) no terminal pra liber
 
     public static String formatarCasa(int numeroDaCasa, int[] posicaoDosJogadores, TipoCasa[] casasDoTabuleiro,
             Propriedade[] propriedades) {
-
-        // cor de cada jogador: vermelho, azul, verde e amarelo
-        final String[] CORES_DOS_JOGADORES = { "\u001B[31m", "\u001B[34m", "\u001B[32m", "\u001B[33m" };
-        final String CODIGO_RESETAR_COR = "\u001B[0m";
 
         // fundo de cada grupo (vermelho, verde, laranja, azul claro, rosa, roxo, azul
         // escuro, amarelo)
@@ -337,7 +342,7 @@ public class BancoImobiliarioBETA { // digite (chcp 65001) no terminal pra liber
 
             if (posicaoDosJogadores[indiceDoJogador] == numeroDaCasa) {
 
-                blocosDosJogadores.append(CORES_DOS_JOGADORES[indiceDoJogador]).append("█").append(fundoDaCasa); // volta
+                blocosDosJogadores.append(CORES_TEXTO[indiceDoJogador]).append("█").append(fundoDaCasa); // volta
                                                                                                                  // pro
                                                                                                                  // fundo
                                                                                                                  // da
@@ -372,9 +377,6 @@ public class BancoImobiliarioBETA { // digite (chcp 65001) no terminal pra liber
     public static String formatarMarcadorDeCasas(int numeroDaCasa, TipoCasa[] casasDoTabuleiro,
             Propriedade[] propriedades) {
 
-        final String[] CORES_DOS_JOGADORES = { "\u001B[31m", "\u001B[34m", "\u001B[32m", "\u001B[33m" };
-        final String CODIGO_RESETAR_COR = "\u001B[0m";
-
         TipoCasa casaAtual = casasDoTabuleiro[numeroDaCasa];
 
         if (casaAtual.getTipoDaCasa() == 1) { // só propriedade pode ter casa
@@ -385,7 +387,7 @@ public class BancoImobiliarioBETA { // digite (chcp 65001) no terminal pra liber
 
             if (numeroDeCasas > 0 && proprietario >= 0) {
                 // 1 espaço + 4 posições (quadrados + espaços) + 2 espaços = 7 caracteres visíveis
-                return " " + CORES_DOS_JOGADORES[proprietario] + "■".repeat(numeroDeCasas) + CODIGO_RESETAR_COR
+                return " " + CORES_TEXTO[proprietario] + "■".repeat(numeroDeCasas) + CODIGO_RESETAR_COR
                         + " ".repeat(4 - numeroDeCasas) + "  ";
             }
         }
@@ -540,7 +542,7 @@ public class BancoImobiliarioBETA { // digite (chcp 65001) no terminal pra liber
             quantidadeDeJogadoresNoDesempate = 0;
             for (int indiceDoJogador = 0; indiceDoJogador < JOGADORES; indiceDoJogador++) {
                 if (jogadorEstaNoDesempate[indiceDoJogador]) {
-                    System.out.printf("Jogador %d:\n", indiceDoJogador + 1);
+                    System.out.printf("%sJogador%s %d:\n", CORES_TEXTO[indiceDoJogador], CODIGO_RESETAR_COR, indiceDoJogador + 1);
                     valorDado1 = girarDado();
                     valorDado2 = girarDado();
                     somaDadoJogadores[indiceDoJogador] = valorDado1 + valorDado2;
@@ -764,6 +766,7 @@ public class BancoImobiliarioBETA { // digite (chcp 65001) no terminal pra liber
         int[] propriedadesDoGrupo = new int[6];
 
         //variáveis relacionadas ao fim do jogo (rodadas e pontuação):
+        String[] ordinais = {"PRIMEIRO", "SEGUNDO", "TERCEIRO", "QUARTO"};
         int duracaoDaPartidaRodadas = 0;
         int contadorRodadas = 1; //quando passar do número que os jogadores escolheram acaba o jogo
         Jogador[] resultadoJogadores = new Jogador[JOGADORES];
@@ -817,8 +820,10 @@ public class BancoImobiliarioBETA { // digite (chcp 65001) no terminal pra liber
 
         while (contadorRodadas <= duracaoDaPartidaRodadas) { // jogo
 
-            System.out.printf("\nJogador %d: R$%d\n", jogadorDaVez + 1, dinheiroDosJogadores[jogadorDaVez]);
-
+            System.out.printf("\n%sJogador %d:%s %sR$ %s%d%s\n",
+                CORES_TEXTO[jogadorDaVez], jogadorDaVez + 1, CODIGO_RESETAR_COR, 
+                CORES_TEXTO[3],CORES_TEXTO[4], dinheiroDosJogadores[jogadorDaVez], CODIGO_RESETAR_COR
+            );
             if (turnosRestantesNaCadeia[jogadorDaVez] > 0) {
                 System.out.printf("Você está na cadeia, espere mais %d turnos e seja livre !!!\n\n", turnosRestantesNaCadeia[jogadorDaVez]);
                 turnosRestantesNaCadeia[jogadorDaVez]--;
@@ -1056,7 +1061,10 @@ public class BancoImobiliarioBETA { // digite (chcp 65001) no terminal pra liber
 
         }
 
-        //falta só a mensagem final
+        for (int i = 0; i < JOGADORES; i++) {
+            System.out.printf("%s LUGAR: Jogador %d  -  %d pontos\n",
+                ordinais[i], resultadoJogadores[i].getNumeroJogador(), resultadoJogadores[i].getPontuacaoJogador());
+        }
 
     } //fim do main
 } //fim da classe
