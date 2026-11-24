@@ -1,6 +1,5 @@
 import java.util.Random;
 import java.util.Scanner;
-import java.util.Arrays;
 
 public class BancoImobiliarioBETA { // digite (chcp 65001) no terminal pra liberar os caracteres (windows apenas)
 
@@ -41,8 +40,9 @@ public class BancoImobiliarioBETA { // digite (chcp 65001) no terminal pra liber
     //cores
     // 0 a 3 cor dos jogador || 4 é cor do dinheiro
     static final String[] CORES_TEXTO = { 
-        "\u001B[31;1m", "\u001B[34;1m", "\u001B[32;1m", "\u001B[33;1m", "\u001B[38;5;46m"
-    };
+        "\u001B[31;1m", "\u001B[34;1m", "\u001B[32;1m", "\u001B[33;1m", "\u001B[38;5;46m", "\u001B[38;5;93m", "\u001B[38;5;208m"
+    }; //vermelho, azul, verde azulado, amarelo, verde forte, roxo, laranja
+
     static final String CODIGO_RESETAR_COR = "\u001B[0m";
 
     final static Scanner ler = new Scanner(System.in);
@@ -70,28 +70,28 @@ public class BancoImobiliarioBETA { // digite (chcp 65001) no terminal pra liber
         switch (cartaSorteada) {
 
             case 0:
-                System.out.println("Você acabou de ganhar na Lotofácil!");
+                System.out.printf("Você acabou de ganhar na %sLotofácil!%s\n",CORES_TEXTO[5], CODIGO_RESETAR_COR);
                 System.out.println("Você ganhou R$100.000!");
                 dinheiroDosJogadores[jogadorDaVez] += 100000;
 
                 break;
 
             case 1:
-                System.out.println("Você trabalhou por 30 dias! Quanto esforço!");
+                System.out.printf("Você trabalhou por %s30 %sdias!%s Quanto esforço!\n", CORES_TEXTO[2], CORES_TEXTO[5], CODIGO_RESETAR_COR);
                 System.out.println("Você ganhou R$ 1.741,00!");
                 dinheiroDosJogadores[jogadorDaVez] += 1741;
 
                 break;
 
             case 2:
-                System.out.println("Seu pai era dono do jogo do bicho e faleceu, você tomou conta dos negócios.");
+                System.out.printf("Seu pai era dono do jogo do %sbicho%s e faleceu, você tomou conta dos negócios.\n", CORES_TEXTO[0], CODIGO_RESETAR_COR);
                 System.out.println("Você ganhou R$270.000!");
                 dinheiroDosJogadores[jogadorDaVez] += 270000;
 
                 break;
 
             case 3:
-                System.out.println("Você ganhou um processo na justiça!");
+                System.out.printf("Você ganhou um processo na %sjustiça!%s\n", CORES_TEXTO[5], CODIGO_RESETAR_COR);
                 System.out.println("Você ganhou R$50.000!");
                 dinheiroDosJogadores[jogadorDaVez] += 50000;
 
@@ -105,22 +105,28 @@ public class BancoImobiliarioBETA { // digite (chcp 65001) no terminal pra liber
                 break;
 
             case 5:
-                System.out.println(
-                        "Você arrematou um carro exótico no leilão, supostamente usado pelo Ayrton Senna. Você reforma o carro e vende por um preço absurdo!");
+                System.out.printf(
+                        "Você arrematou um carro exótico no leilão, supostamente usado pelo %sAyrton %sSenna%s. Você reforma o carro e vende por um preço absurdo!",
+                        CORES_TEXTO[0], CORES_TEXTO[2], CODIGO_RESETAR_COR
+                    );
                 System.out.println("Você ganhou R$70.000!");
                 dinheiroDosJogadores[jogadorDaVez] += 70000;
 
                 break;
 
             case 6:
-                System.out.println("Tigrinho soltou a carta, e você ganha o jackpot!");
+                System.out.printf("%sTigrinho%s soltou a carta, e você ganha o %sjackpot!%s\n",
+                    CORES_TEXTO[6], CODIGO_RESETAR_COR, CORES_TEXTO[0], CODIGO_RESETAR_COR
+                );
                 System.out.println("Você ganhou R$80.000!");
                 dinheiroDosJogadores[jogadorDaVez] += 80000;
 
                 break;
 
             case 7:
-                System.out.println("Você ganhou o campeonato de farmar aura! Moggou todos os betinhas.");
+                System.out.printf("Você ganhou o %scampeonato%s de farmar %saura%s! Moggou todos os betinhas.\n",
+                    CORES_TEXTO[5], CODIGO_RESETAR_COR, CORES_TEXTO[1], CODIGO_RESETAR_COR
+                );
                 System.out.println("Você ganhou R$67.667! Quanta aura!");
                 dinheiroDosJogadores[jogadorDaVez] += 67667;
 
@@ -134,8 +140,10 @@ public class BancoImobiliarioBETA { // digite (chcp 65001) no terminal pra liber
                 break;
 
             case 9:
-                System.out.println(
-                        "Em um dia chuvoso, seu carro de luxo acaba derrapando a traseira e bate na barreira da rodovia.");
+                System.out.printf(
+                        "Em um dia %schuvoso%s, seu %scarro%S de %sluxo%s acaba derrapando a traseira e bate na barreira da rodovia.",
+                        CORES_TEXTO[1], CODIGO_RESETAR_COR, CORES_TEXTO[0], CODIGO_RESETAR_COR, CORES_TEXTO[3], CODIGO_RESETAR_COR
+                    );
                 System.out.println("Você perdeu R$120.000.");
                 dinheiroDosJogadores[jogadorDaVez] -= 120000;
 
@@ -727,7 +735,7 @@ public class BancoImobiliarioBETA { // digite (chcp 65001) no terminal pra liber
         int jogadorDaVez = 0;
         int[] somaDadoJogadores = new int[JOGADORES];
         int[] posicaoDosJogadores = new int[JOGADORES];
-        int[] dinheiroDosJogadores = { 2558000, 2558000, 2558000, 2558000 };
+        int[] dinheiroDosJogadores = { 2225000, 2225000, 2225000, 2225000 };
         
         // variáveis referentes acadeia (também relacionadas aos jogador)
         int[] turnosRestantesNaCadeia = new int[JOGADORES];
