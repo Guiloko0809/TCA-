@@ -98,7 +98,7 @@ public class BancoImobiliarioBETA { // digite (chcp 65001) no terminal pra liber
                 break;
 
             case 4:
-                System.out.println("Você fechou um contrato importante, e acabou saindo na frente!");
+                System.out.printf("Você fechou um contrato %simportante%s, e acabou saindo na frente!\n", CORES_TEXTO[3], CODIGO_RESETAR_COR);
                 System.out.println("Você ganhou R$55.000!");
                 dinheiroDosJogadores[jogadorDaVez] += 55000;
 
@@ -133,7 +133,7 @@ public class BancoImobiliarioBETA { // digite (chcp 65001) no terminal pra liber
                 break;
 
             case 8:
-                System.out.println("Você aposta no tigrinho, e ele não soltou a carta.");
+                System.out.printf("Você aposta no %stigrinho%s, e ele não soltou a carta.\n", CORES_TEXTO[6], CODIGO_RESETAR_COR);
                 System.out.println("Você perdeu R$90.000.");
                 dinheiroDosJogadores[jogadorDaVez] -= 90000;
 
@@ -144,14 +144,14 @@ public class BancoImobiliarioBETA { // digite (chcp 65001) no terminal pra liber
                         "Em um dia %schuvoso%s, seu %scarro%S de %sluxo%s acaba derrapando a traseira e bate na barreira da rodovia.",
                         CORES_TEXTO[1], CODIGO_RESETAR_COR, CORES_TEXTO[0], CODIGO_RESETAR_COR, CORES_TEXTO[3], CODIGO_RESETAR_COR
                     );
-                System.out.println("Você perdeu R$120.000.");
+                System.out.printf("Você %sperdeu%s R$120.000.\n", CORES_TEXTO[0], CODIGO_RESETAR_COR);
                 dinheiroDosJogadores[jogadorDaVez] -= 120000;
 
                 break;
 
             case 10:
                 System.out.println("Você atropela uma idosa rica e ela acaba te processando. Você perde o processo.");
-                System.out.println("Você perdeu R$60.000.");
+                System.out.printf("Você %sperdeu%s R$60.000.\n", CORES_TEXTO[0], CODIGO_RESETAR_COR);
                 dinheiroDosJogadores[jogadorDaVez] -= 60000;
 
                 break;
@@ -159,21 +159,21 @@ public class BancoImobiliarioBETA { // digite (chcp 65001) no terminal pra liber
             case 11:
                 System.out.println(
                         "Você perde o campeonato de farmar aura. Para ninguém saber a vergonha que passou, você paga quem fez seus vídeos para eles não postarem.");
-                System.out.println("Você perdeu R$67.667.");
+                System.out.printf("Você %sperdeu%s R$67.667.\n", CORES_TEXTO[0], CODIGO_RESETAR_COR);
                 dinheiroDosJogadores[jogadorDaVez] -= 67667;
 
                 break;
 
             case 12:
                 System.out.println("Um tsunami surpresa na praia da Barra(RJ) acaba destruindo sua casa de férias.");
-                System.out.println("Você perdeu R$110.000.");
+                System.out.printf("Você %sperdeu%s R$110.000.\n", CORES_TEXTO[0], CODIGO_RESETAR_COR);
                 dinheiroDosJogadores[jogadorDaVez] -= 110000;
 
                 break;
 
             case 13:
                 System.out.println("No trajeto de volta para sua casa, você é encurralado por dois caras em uma moto e acaba sendo assaltado.");
-                System.out.println("Você perdeu R$50.000.");
+                System.out.printf("Você %sperdeu%s R$50.000.\n", CORES_TEXTO[0], CODIGO_RESETAR_COR);
                 dinheiroDosJogadores[jogadorDaVez] -= 50000;
 
                 break;
@@ -181,14 +181,14 @@ public class BancoImobiliarioBETA { // digite (chcp 65001) no terminal pra liber
             case 14:
                 System.out.println(
                         "No meio do campeonato, você acaba quebrando seu braço e teve que pagar uma cirurgia.");
-                System.out.println("Você perdeu R$20.000.");
+                System.out.printf("Você %sperdeu%s R$20.000.\n", CORES_TEXTO[0], CODIGO_RESETAR_COR);
                 dinheiroDosJogadores[jogadorDaVez] -= 20000;
 
                 break;
 
             case 15:
                 System.out.println("Você cai em um golpe na internet, e acaba comprando 10.000 Benjamins.");
-                System.out.println("Você perdeu R$60.000.");
+                System.out.printf("Você %sperdeu%s R$60.000.\n", CORES_TEXTO[0], CODIGO_RESETAR_COR);
                 dinheiroDosJogadores[jogadorDaVez] -= 60000;
 
                 break;
@@ -250,8 +250,8 @@ public class BancoImobiliarioBETA { // digite (chcp 65001) no terminal pra liber
                 break;
 
             case 19:
-                System.out.printf("Você deu propina para um %spolicial%s %sfederal e mandou ele prender alguem!\n",
-                    CORES_TEXTO[1], CODIGO_RESETAR_COR, CORES_TEXTO[3]);
+                System.out.printf("Você deu propina para um %spolicial%s %sfederal%s e mandou ele prender alguem!\n",
+                    CORES_TEXTO[1], CODIGO_RESETAR_COR, CORES_TEXTO[3], CODIGO_RESETAR_COR);
                 System.out.println("Quem você quer mandar para a cadeia?");
 
                 entrada = ler.nextInt();
@@ -550,7 +550,7 @@ public class BancoImobiliarioBETA { // digite (chcp 65001) no terminal pra liber
             quantidadeDeJogadoresNoDesempate = 0;
             for (int indiceDoJogador = 0; indiceDoJogador < JOGADORES; indiceDoJogador++) {
                 if (jogadorEstaNoDesempate[indiceDoJogador]) {
-                    System.out.printf("%sJogador%s %d:\n", CORES_TEXTO[indiceDoJogador], CODIGO_RESETAR_COR, indiceDoJogador + 1);
+                    System.out.printf("%sJogador %d:%s\n", CORES_TEXTO[indiceDoJogador], indiceDoJogador + 1, CODIGO_RESETAR_COR);
                     valorDado1 = girarDado();
                     valorDado2 = girarDado();
                     somaDadoJogadores[indiceDoJogador] = valorDado1 + valorDado2;
@@ -921,7 +921,7 @@ public class BancoImobiliarioBETA { // digite (chcp 65001) no terminal pra liber
                         entrada = verificarEntradaValida(gruposPosseJogadorDaVez, entrada);
                         contador = 0;
 
-                        System.out.printf("\nGrupo %d:\n", entrada); //azul claro (brilhante)
+                        System.out.printf("\nGrupo %d:\n", entrada); 
                         for (int j = 0; j < propriedades.length; j++) { //percorre todas as propriedades
                             if(propriedades[j].getGrupo() == entrada){
                                 System.out.printf("%s - propriedade: %d     custo: R$%d\n", propriedades[j].getNome(), j, propriedades[j].getPrecoCasaHotel()); //imprime a propriedade e o número dela
@@ -1027,29 +1027,30 @@ public class BancoImobiliarioBETA { // digite (chcp 65001) no terminal pra liber
         System.out.println("A CADA COMPANHIA SÃO DOIS PONTOS");
         System.out.println("A CADA PROPRIEDADE É UM PONTO");
         System.out.println("A CADA CASA É UM PONTO (5 PONTOS SE FOR HOTEL)");
-        System.out.println("FORA OS PONTOS EXTRAS");
 
         for (int i = 0; i < JOGADORES; i++) { //percore os jogadores somando a pontuação
             System.out.printf("\nJogador %d:\n", i + 1);
             
             if(dinheiroDosJogadores[i] >= 100000){
-                System.out.printf("DINHEIRO: %d pontos\n", dinheiroDosJogadores[i] / 100000);
+                System.out.printf("%sDINHEIRO:%s %d pontos\n",CORES_TEXTO[4], CODIGO_RESETAR_COR, dinheiroDosJogadores[i] / 100000);
                 resultadoJogadores[i].setPontuacaoJogador(resultadoJogadores[i].somarPontuacaoJogador(dinheiroDosJogadores[i] / 100000));
             }else{
-                System.out.println("DINHEIRO: 0 pontos");
+                System.out.printf("%sDINHEIRO:%s 0 pontos%s\n", CORES_TEXTO[4], CORES_TEXTO[0], CODIGO_RESETAR_COR);
             }
             
-            System.out.printf("COMPANHIAS: %d pontos\n", companhiasCompradasPeloJogador[i] * 2);
+            System.out.printf("%sCOMPANHIAS:%s %d pontos\n",CORES_TEXTO[5], CODIGO_RESETAR_COR,  companhiasCompradasPeloJogador[i] * 2);
             resultadoJogadores[i].setPontuacaoJogador(resultadoJogadores[i].somarPontuacaoJogador(companhiasCompradasPeloJogador[i] * 2)); //companhiasCompradasPeloJogador[i] * 2;
 
             System.out.printf("PROPRIEDADES: %d pontos\n", propriedadesCompradasPeloJogador[i]);
             resultadoJogadores[i].setPontuacaoJogador(resultadoJogadores[i].somarPontuacaoJogador(propriedadesCompradasPeloJogador[i]));
 
-            System.out.printf("CASAS E HOTÉIS: %d pontos\n", casasConstruidasPeloJogador[i] + (hoteisConstruidosPeloJogador[i] * 5));
+            System.out.printf("CASAS E %sHOTÉIS:%s %d pontos\n",CORES_TEXTO[1], CODIGO_RESETAR_COR, casasConstruidasPeloJogador[i] + (hoteisConstruidosPeloJogador[i] * 5));
             resultadoJogadores[i].setPontuacaoJogador(resultadoJogadores[i].somarPontuacaoJogador(casasConstruidasPeloJogador[i] + (hoteisConstruidosPeloJogador[i] * 5)));
             System.out.printf("TOTAL: %d pontos\n", resultadoJogadores[i].getPontuacaoJogador());
 
         }
+
+        System.out.println("");
 
         for(int i = 0; i < JOGADORES - 1; i++){
 
@@ -1070,8 +1071,8 @@ public class BancoImobiliarioBETA { // digite (chcp 65001) no terminal pra liber
         }
 
         for (int i = 0; i < JOGADORES; i++) {
-            System.out.printf("%s LUGAR: Jogador %d  -  %d pontos\n",
-                ordinais[i], resultadoJogadores[i].getNumeroJogador(), resultadoJogadores[i].getPontuacaoJogador());
+            System.out.printf("%s LUGAR: %sJogador %d%s  -  %d pontos\n",
+                ordinais[i], CORES_TEXTO[i], resultadoJogadores[i].getNumeroJogador(), CODIGO_RESETAR_COR, resultadoJogadores[i].getPontuacaoJogador());
         }
 
     } //fim do main
