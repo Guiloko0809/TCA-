@@ -17,3 +17,5 @@ String nome
 int preco
 int proprietario
 int valorConta
+
+linhas total: 1545
