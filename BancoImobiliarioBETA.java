@@ -242,6 +242,7 @@ public class BancoImobiliarioBETA { // digite (chcp 65001) no terminal pra liber
                 break;
 
             case 18:
+                DadoAnimado.tocarSom("sons/Policia.wav", false); // toca e o jogo segue
                 System.out.println("Você foi pego sonegando impostos e a policia federal bateu na sua porta..");
                 System.out.println("Você foi para cadeia, fique 3 turnos sem jogar!");
                 posicaoDosJogadores[jogadorDaVez] = POSICAO_CADEIA;
@@ -268,6 +269,8 @@ public class BancoImobiliarioBETA { // digite (chcp 65001) no terminal pra liber
                     entrada = verificarEntradaValida(new int[] { 1, 2, 3, 4 }, entrada);
                 }
 
+                DadoAnimado.tocarSom("sons/Policia.wav", false);
+
                 System.out.printf("O Jogador %d foi preso, ficará 3 turnos sem jogar !!!\n", entrada);
                 posicaoDosJogadores[entrada - 1] = POSICAO_CADEIA;
                 turnosRestantesNaCadeia[entrada - 1] = 3;
@@ -279,7 +282,7 @@ public class BancoImobiliarioBETA { // digite (chcp 65001) no terminal pra liber
     }
 
     public static String formatarCasa(int numeroDaCasa, int[] posicaoDosJogadores, TipoCasa[] casasDoTabuleiro,
-            Propriedade[] propriedades) {
+            Propriedade[] propriedades, Companhia[] companhias) {
 
         // fundo de cada grupo (vermelho, verde, laranja, azul claro, rosa, roxo, azul
         // escuro, amarelo)
@@ -310,6 +313,10 @@ public class BancoImobiliarioBETA { // digite (chcp 65001) no terminal pra liber
             grupoDaPropriedade = propriedades[casaAtual.getPosicaoCartaCasa()].getGrupo();
             fundoDaCasa = FUNDO_NORMAL_POR_GRUPO[grupoDaPropriedade];
 
+            if(propriedades[casaAtual.getPosicaoCartaCasa()].getProprietario() != -1){
+                siglaDaCasa = "J" + (propriedades[casaAtual.getPosicaoCartaCasa()].getProprietario() + 1);
+            }
+
             // se tem qualquer jogador na casa, escurece a casa pra ele aparecer melhor
             for (int indiceDoJogador = 0; indiceDoJogador < JOGADORES; indiceDoJogador++) {
 
@@ -323,6 +330,10 @@ public class BancoImobiliarioBETA { // digite (chcp 65001) no terminal pra liber
 
             siglaDaCasa = "CO";
             fundoDaCasa = "\u001B[30;48;5;245m"; // companhia fica cinza
+
+            if(companhias[casaAtual.getPosicaoCartaCasa()].getProprietario() != -1){
+                siglaDaCasa = "J" + (companhias[casaAtual.getPosicaoCartaCasa()].getProprietario() + 1);
+            }
 
         } else if (casaAtual.getTipoDaCasa() == 3) {
 
@@ -350,13 +361,8 @@ public class BancoImobiliarioBETA { // digite (chcp 65001) no terminal pra liber
 
             if (posicaoDosJogadores[indiceDoJogador] == numeroDaCasa) {
 
-                blocosDosJogadores.append(CORES_TEXTO[indiceDoJogador]).append("█").append(fundoDaCasa); // volta
-                                                                                                                 // pro
-                                                                                                                 // fundo
-                                                                                                                 // da
-                                                                                                                 // casa
+                blocosDosJogadores.append(CORES_TEXTO[indiceDoJogador]).append("█").append(fundoDaCasa); //volta pro fundoDaCasa
                 quantidadeDeJogadoresNaCasa++;
-
             }
 
         }
@@ -406,7 +412,7 @@ public class BancoImobiliarioBETA { // digite (chcp 65001) no terminal pra liber
     // imprime o tabuleiro inteiro. Antes de cada linha de casas vem a linha com os
     // quadrados das construções (fica "em cima" das propriedades)
     public static void imprimirTabuleiro(int[][] desenhoDoTabuleiro, int[] posicaoDosJogadores,
-            TipoCasa[] casasDoTabuleiro, Propriedade[] propriedades) {
+            TipoCasa[] casasDoTabuleiro, Propriedade[] propriedades, Companhia[] companhias) {
 
         for (int linha = 0; linha < desenhoDoTabuleiro.length; linha++) {
 
@@ -427,7 +433,7 @@ public class BancoImobiliarioBETA { // digite (chcp 65001) no terminal pra liber
 
                 if (desenhoDoTabuleiro[linha][coluna] >= 0) {
                     System.out.print(formatarCasa(desenhoDoTabuleiro[linha][coluna], posicaoDosJogadores,
-                            casasDoTabuleiro, propriedades));
+                            casasDoTabuleiro, propriedades, companhias));
                 } else {
                     System.out.print("       ");
                 }
@@ -711,6 +717,7 @@ public class BancoImobiliarioBETA { // digite (chcp 65001) no terminal pra liber
 
                         break;
                     case 5: // vá pra cadeia
+                        DadoAnimado.tocarSom("sons/Policia.wav", false);
                         System.out.println("Vá para a cadeia! Fique 3 turnos sem jogar !!!");
                         turnosRestantesNaCadeia[jogadorDaVez] = 3;
                         posicaoDosJogadores[jogadorDaVez] = POSICAO_CADEIA; // o jogador vai pra casa da cadeia
@@ -858,6 +865,7 @@ public class BancoImobiliarioBETA { // digite (chcp 65001) no terminal pra liber
                         System.out.println("Você tirou dados iguais jogue novamente !!!");
                         jogadorJogaDeNovo = true;
                     } else {
+                        DadoAnimado.tocarSom("sons/Policia.wav", false);
                         System.out.println("Você foi pra cadeia, fique 3 turnos sem jogar !!!");
                         posicaoDosJogadores[jogadorDaVez] = POSICAO_CADEIA;
                         turnosRestantesNaCadeia[jogadorDaVez] = 3;
@@ -870,7 +878,7 @@ public class BancoImobiliarioBETA { // digite (chcp 65001) no terminal pra liber
                 }
 
                 // imprime tabuleiro
-                imprimirTabuleiro(desenhoDoTabuleiro, posicaoDosJogadores, casasDoTabuleiro, propriedades);
+                imprimirTabuleiro(desenhoDoTabuleiro, posicaoDosJogadores, casasDoTabuleiro, propriedades, companhias);
 
                 pisarCasa(posicaoDosJogadores, dinheiroDosJogadores, turnosRestantesNaCadeia, somaDadoJogadores,
                         jogadorDaVez, casasDoTabuleiro, propriedades, companhias, gruposJogadorEhDono);
@@ -998,7 +1006,7 @@ public class BancoImobiliarioBETA { // digite (chcp 65001) no terminal pra liber
 
                             // redesenha o tabuleiro pra mostrar o quadrado da construção que acabou de ser feita
                             System.out.println();
-                            imprimirTabuleiro(desenhoDoTabuleiro, posicaoDosJogadores, casasDoTabuleiro, propriedades);
+                            imprimirTabuleiro(desenhoDoTabuleiro, posicaoDosJogadores, casasDoTabuleiro, propriedades, companhias);
 
                             System.out.printf("O aluguel do(a) %s agora custa R$%d\n", propriedades[entrada].getNome(), propriedades[entrada].getAluguel());
                             System.out.printf("\nJogador %d: R$%d\n", jogadorDaVez + 1, dinheiroDosJogadores[jogadorDaVez]); //pro jogador saber quando dinheiro ele tem agora

@@ -6,7 +6,6 @@ public class Propriedade {
     private int aluguel;
     private int precoCasaHotel;
     private int numeroCasas;
-    private int valorHipoteca;
 
     //métodos
     public static Propriedade[] criarPropriedades(){ //método para criar todas as propriedades
@@ -29,7 +28,7 @@ public class Propriedade {
         propriedades[15] = new Propriedade("UPA Veneza", 140000, 6, 10000, 100000);
         propriedades[16] = new Propriedade("Avenida Tito Muffato", 320000, 2, 28000, 200000);
         propriedades[17] = new Propriedade("Eleodoro", 300000, 2, 26000, 200000);
-        propriedades[18] = new Propriedade("Galego's", 300000, 2, 26000, 200000);
+        propriedades[18] = new Propriedade("Galego's", 300000, 7, 26000, 200000);
         propriedades[19] = new Propriedade("Rua Paraná", 280000, 7, 26000, 150000);
         propriedades[20] = new Propriedade("Rua Maranhão", 260000, 7, 22000, 150000);
         propriedades[21] = new Propriedade("Rua Laranja, 130", 260000, 7, 22000, 150000);
