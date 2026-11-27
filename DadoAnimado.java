@@ -29,8 +29,9 @@ public class DadoAnimado{
            int valorFaces2 = mostrarFaces.nextInt(6) + 1;
            
            MostrarDados(valorFaces1, valorFaces2);
-           System.out.print("\u001B[5A");
-           System.out.flush();
+           System.out.print("\u001B[5A"); //sobe
+           System.out.flush();//manda executar a subida agora ao invés de guardar no buffer
+                              //no próximo loop 'MostrarDados(valorFaces1, valorFaces2);' vai imprimir no mesmo lugar (em cima) dos dados antigos
 
             try{
                 Thread.sleep(62 * ((i / 2) + 1) );
@@ -145,9 +146,4 @@ public class DadoAnimado{
         
     };
 
-    public static void main(String[] args) {
-        
-
-        animarDados(1, 2); // apenas teste
-    }
 }

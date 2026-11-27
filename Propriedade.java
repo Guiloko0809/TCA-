@@ -26,9 +26,9 @@ public class Propriedade {
         propriedades[13] = new Propriedade("Avenida Assunção", 140000, 6, 8000, 50000);
         propriedades[14] = new Propriedade("Avenida Sabiá, 610 ", 160000, 6, 10000, 100000);
         propriedades[15] = new Propriedade("UPA Veneza", 140000, 6, 10000, 100000);
-        propriedades[16] = new Propriedade("Avenida Tito Muffato", 320000, 2, 28000, 200000);
+        propriedades[16] = new Propriedade("Avenida Tito Muffato", 120000, 5, 10000, 50000);
         propriedades[17] = new Propriedade("Eleodoro", 300000, 2, 26000, 200000);
-        propriedades[18] = new Propriedade("Galego's", 300000, 7, 26000, 200000);
+        propriedades[18] = new Propriedade("Galego's", 300000, 2, 26000, 200000);
         propriedades[19] = new Propriedade("Rua Paraná", 280000, 7, 26000, 150000);
         propriedades[20] = new Propriedade("Rua Maranhão", 260000, 7, 22000, 150000);
         propriedades[21] = new Propriedade("Rua Laranja, 130", 260000, 7, 22000, 150000);
